@@ -10,7 +10,9 @@ import com.artemklymenko.cards.view.fragments.HomeFragment
 import com.artemklymenko.cards.view.fragments.SettingsFragment
 import com.google.android.material.navigation.NavigationBarView.LABEL_VISIBILITY_SELECTED
 import com.google.android.material.navigation.NavigationBarView.LabelVisibility
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
