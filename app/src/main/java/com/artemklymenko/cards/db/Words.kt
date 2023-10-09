@@ -8,6 +8,6 @@ import com.artemklymenko.cards.utils.Constants.TABLE_NAME
 data class Words(
     @PrimaryKey(autoGenerate = true)
     val wordsId: Int = 0,
-    val origin: String,
-    val translated: String
+    val origin: String = "",
+    val translated: String = ""
 )
