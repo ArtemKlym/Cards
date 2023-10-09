@@ -9,4 +9,7 @@
     <string name="add_word">add word</string>
     <string name="amount_of_days">0</string>
     <string name="flame_description">Flame as addition to number of days</string>
+    <string name="origin">Origin</string>
+    <string name="translated">Translated</string>
+    <string name="ivOrigin_description">Arrow to emphasise the origin word</string>
 </resources>
