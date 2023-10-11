@@ -7,7 +7,7 @@ import javax.inject.Inject
 class WordsRepositoryDb @Inject constructor(
     private val dao: WordDao
 ) {
-    suspend fun  insertWords(words: Words) = dao.insertWords(words)
+    suspend fun insertWords(words: Words) = dao.insertWords(words)
 
     suspend fun updateWords(words: Words) = dao.updateWords(words)
 
