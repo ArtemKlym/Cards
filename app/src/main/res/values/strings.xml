@@ -57,4 +57,5 @@
     </string>
     <string name="iv_arrow_description">Shows which language is being translated from which language</string>
     <string name="add">Add</string>
+    <string name="unknown_error">something went wrong</string>
 </resources>

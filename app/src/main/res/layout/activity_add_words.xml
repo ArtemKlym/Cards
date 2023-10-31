@@ -12,20 +12,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvModel"
         app:strokeColor="#B796E8"
         app:strokeWidth="2dp">
 
         <Spinner
             android:id="@+id/spOrigin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp" />
+            android:layout_height="48dp"
+            android:padding="8dp" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -34,20 +34,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cvOrigin"
         app:strokeColor="#B796E8"
         app:strokeWidth="2dp">
 
         <Spinner
             android:id="@+id/spTranslated"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp" />
+            android:layout_height="48dp"
+            android:padding="8dp" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -60,6 +59,7 @@
         android:layout_marginEnd="32dp"
         app:endIconDrawable="@drawable/iv_translate"
         app:endIconMode="custom"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,53 +69,63 @@
             android:id="@+id/etOrigin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/origin"
-            android:textColorHint="@color/white" />
+            android:hint="@string/origin"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTranslated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         app:endIconDrawable="@drawable/iv_translate"
         app:endIconMode="custom"
-        app:layout_constraintTop_toBottomOf="@+id/tilOrigin"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilOrigin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTranslated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/translated"
-            android:textColorHint="@color/white" />
+            android:hint="@string/translated"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/iv_arrow_description"
         app:layout_constraintBottom_toBottomOf="@+id/cvTranslated"
         app:layout_constraintEnd_toStartOf="@+id/cvTranslated"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cvOrigin"
         app:layout_constraintTop_toTopOf="@+id/cvTranslated"
-        app:srcCompat="@drawable/iv_arrow"
-        android:contentDescription="@string/iv_arrow_description"/>
+        app:srcCompat="@drawable/iv_arrow" />
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/add"
         android:enabled="false"
+        android:text="@string/add"
         app:layout_constraintEnd_toEndOf="@+id/tilTranslated"
         app:layout_constraintStart_toStartOf="@+id/tilTranslated"
         app:layout_constraintTop_toBottomOf="@+id/tilTranslated" />
+
+    <TextView
+        android:id="@+id/tvModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
