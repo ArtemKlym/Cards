@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.artemklymenko.cards.databinding.ActivityAddWordsBinding
 import com.artemklymenko.cards.di.ModelLanguage
 import com.artemklymenko.cards.vm.TranslateViewModel
+import com.artemklymenko.cards.vm.WordsViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.mlkit.nl.translate.TranslateLanguage
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +33,7 @@ class AddWordsActivity : AppCompatActivity() {
 
     private var languageArrayList: List<ModelLanguage> = emptyList()
     private val translationViewModel: TranslateViewModel by viewModels()
+    private val wordsViewModel: WordsViewModel by viewModels()
 
     companion object {
         private const val TAG = "MAIN_TAG"
@@ -72,13 +74,39 @@ class AddWordsActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
+                binding.tilOrigin.error = null
+                binding.tilTranslated.error = null
                 validateData()
             }
         })
 
         translateBtn.setOnClickListener {
-
+            if(checkFields()) {
+                val result = wordsViewModel.insertWords(
+                    sourceLang.text!!.toString(),
+                    targetLang.text!!.toString()
+                )
+                checkResult(result)
+            }else{
+                binding.tilOrigin.error = "Fill field"
+                binding.tilTranslated.error = "Fill field"
+            }
         }
+    }
+
+    private fun checkResult(result: Boolean) {
+        if(result){
+            binding.apply {
+                sourceLang.text!!.clear()
+                targetLang.text!!.clear()
+            }
+        }else{
+            Toast.makeText(this, "Failed to add a card", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkFields(): Boolean {
+        return sourceLang.text!!.isNotEmpty() && targetLang.text!!.isNotEmpty()
     }
 
     private fun setupViews() {
