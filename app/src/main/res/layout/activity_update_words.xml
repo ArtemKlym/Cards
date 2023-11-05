@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="@string/origin"
+            android:inputType="text"
             android:textColorHint="#616161" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="@string/translated"
+            android:inputType="text"
             android:textColorHint="#616161" />
     </com.google.android.material.textfield.TextInputLayout>
 
