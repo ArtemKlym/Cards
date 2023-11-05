@@ -1,6 +1,7 @@
 package com.artemklymenko.cards.adaptar
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.artemklymenko.cards.databinding.ItemWordsBinding
 import com.artemklymenko.cards.db.Words
+import com.artemklymenko.cards.view.activities.UpdateWordsActivity
 import javax.inject.Inject
 
 class WordsAdapter @Inject constructor():
@@ -35,7 +37,9 @@ class WordsAdapter @Inject constructor():
                 tvOrigin.text = words.origin
                 tvTranslated.text = words.translated
                 root.setOnClickListener {
-                    TODO("Implement the intent to update the activity")
+                    val intent = Intent(context, UpdateWordsActivity::class.java)
+                    intent.putExtra("wordsId", words.wordsId)
+                    context.startActivity(intent)
                 }
             }
         }
