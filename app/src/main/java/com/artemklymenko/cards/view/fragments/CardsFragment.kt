@@ -40,6 +40,11 @@ class CardsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        checkItems()
+    }
+
     private fun checkItems() {
         CoroutineScope(Dispatchers.IO).launch {
             val list = viewModel.getAllWords()
