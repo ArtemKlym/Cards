@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.artemklymenko.cards.databinding.FragmentHomeBinding
 import com.artemklymenko.cards.view.activities.AddWordsActivity
+import com.artemklymenko.cards.view.activities.CardsActivity
 
 class HomeFragment : Fragment() {
 
@@ -23,6 +24,9 @@ class HomeFragment : Fragment() {
         binding.apply {
             btnAddWord.setOnClickListener {
                 startActivity(Intent(context, AddWordsActivity::class.java))
+            }
+            btnStartLearning.setOnClickListener {
+                startActivity(Intent(context, CardsActivity::class.java))
             }
         }
 
