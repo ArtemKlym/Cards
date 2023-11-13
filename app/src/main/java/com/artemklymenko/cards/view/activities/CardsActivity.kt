@@ -1,9 +1,6 @@
 package com.artemklymenko.cards.view.activities
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.artemklymenko.cards.adaptar.SwipeAdapter
@@ -46,16 +43,13 @@ class CardsActivity : AppCompatActivity() {
         koloda.kolodaListener = object : KolodaListener {
 
             override fun onCardSwipedLeft(position: Int) {
-                if (position + 1 < arrayList.size) {
-                    val repeatWord = arrayList[position + 1]
-                    swipeAdapter.addSwiped(repeatWord)
-                    arrayList.add(repeatWord)
-                    updateProgressBar(0)
-                }
+                val repeatWord = arrayList[position + 1]
+                swipeAdapter.addSwiped(repeatWord)
+                arrayList.add(repeatWord)
             }
 
             override fun onCardSwipedRight(position: Int) {
-                updateProgressBar(1)
+                updateProgressBar()
             }
         }
     }
@@ -80,7 +74,7 @@ class CardsActivity : AppCompatActivity() {
         koloda.adapter = swipeAdapter
     }
 
-    private fun updateProgressBar(currentProgress: Int) {
-        binding.progressBar.progress += currentProgress
+    private fun updateProgressBar() {
+        binding.progressBar.progress += 1
     }
 }
