@@ -24,4 +24,5 @@
     <string name="unknown_error">something went wrong</string>
     <string name="delete">Delete</string>
     <string name="update">Update</string>
+    <string name="all_caught_up">All Caught Up!</string>
 </resources>
