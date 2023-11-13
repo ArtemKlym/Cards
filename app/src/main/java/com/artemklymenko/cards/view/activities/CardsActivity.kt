@@ -1,5 +1,6 @@
 package com.artemklymenko.cards.view.activities
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,8 +21,6 @@ import kotlinx.coroutines.launch
 class CardsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCardsBinding
-
-    private lateinit var wordsList: List<Words>
 
     private lateinit var swipeAdapter: SwipeAdapter
 
@@ -47,24 +46,31 @@ class CardsActivity : AppCompatActivity() {
         koloda.kolodaListener = object : KolodaListener {
 
             override fun onCardSwipedLeft(position: Int) {
-                arrayList = wordsList as ArrayList<Words>
-                swipeAdapter.addSwiped(arrayList[position + 1])
-                arrayList.add(arrayList[position + 1])
-                updateProgressBar(arrayList.size, -1)
+                if (position + 1 < arrayList.size) {
+                    val repeatWord = arrayList[position + 1]
+                    swipeAdapter.addSwiped(repeatWord)
+                    arrayList.add(repeatWord)
+                    updateProgressBar(0)
+                }
             }
 
             override fun onCardSwipedRight(position: Int) {
-                updateProgressBar(arrayList.size - 1, 1)
+                updateProgressBar(1)
             }
         }
+    }
+
+    private fun initializeProgressBar(listSize: Int) {
+        binding.progressBar.max = listSize
     }
 
     private fun getList() {
         CoroutineScope(Dispatchers.IO).launch {
             val list = viewModel.getAllWords()
             runOnUiThread {
-                wordsList = list
-                setupAdapter(wordsList)
+                initializeProgressBar(list.size)
+                setupAdapter(list)
+                arrayList = list as ArrayList<Words>
             }
         }
     }
@@ -74,8 +80,7 @@ class CardsActivity : AppCompatActivity() {
         koloda.adapter = swipeAdapter
     }
 
-    private fun updateProgressBar(listSize: Int, currentProgress: Int) {
-        binding.progressBar.max = listSize
+    private fun updateProgressBar(currentProgress: Int) {
         binding.progressBar.progress += currentProgress
     }
 }
