@@ -46,4 +46,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
+    <TextView
+        android:id="@+id/tvRepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repeat"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#7E3FF2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/koloda"
+        app:layout_constraintEnd_toStartOf="@+id/tvKnow"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/tvKnow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/know"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#7E3FF2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/koloda"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvRepeat"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/ivHintRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/tvKnow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintStart_toEndOf="@+id/tvKnow"
+        app:layout_constraintTop_toTopOf="@+id/tvKnow"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/iv_arrow" />
+
+    <ImageView
+        android:id="@+id/ivHintLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:scaleX="-1"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRepeat"
+        app:layout_constraintEnd_toStartOf="@+id/tvRepeat"
+        app:layout_constraintHorizontal_bias="0.793"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvRepeat"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/iv_arrow" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
