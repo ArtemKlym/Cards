@@ -1,6 +1,7 @@
 package com.artemklymenko.cards.view.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.artemklymenko.cards.adaptar.SwipeAdapter
@@ -46,10 +47,16 @@ class CardsActivity : AppCompatActivity() {
                 val repeatWord = arrayList[position + 1]
                 swipeAdapter.addSwiped(repeatWord)
                 arrayList.add(repeatWord)
+                changeHintVisibilityInvisible()
             }
 
             override fun onCardSwipedRight(position: Int) {
                 updateProgressBar()
+                changeHintVisibilityInvisible()
+            }
+
+            override fun onCardDrag(position: Int, cardView: View, progress: Float) {
+                changeHintVisibilityVisible()
             }
         }
     }
@@ -76,5 +83,23 @@ class CardsActivity : AppCompatActivity() {
 
     private fun updateProgressBar() {
         binding.progressBar.progress += 1
+    }
+
+    private fun changeHintVisibilityVisible() {
+        binding.apply {
+                tvRepeat.visibility = View.VISIBLE
+                tvKnow.visibility = View.VISIBLE
+                ivHintLeft.visibility = View.VISIBLE
+                ivHintRight.visibility = View.VISIBLE
+        }
+    }
+
+    private fun changeHintVisibilityInvisible(){
+        binding.apply {
+            tvRepeat.visibility = View.INVISIBLE
+            tvKnow.visibility = View.INVISIBLE
+            ivHintLeft.visibility = View.INVISIBLE
+            ivHintRight.visibility = View.INVISIBLE
+        }
     }
 }

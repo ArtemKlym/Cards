@@ -25,4 +25,6 @@
     <string name="delete">Delete</string>
     <string name="update">Update</string>
     <string name="all_caught_up">All Caught Up!</string>
+    <string name="know">Know</string>
+    <string name="repeat">Repeat</string>
 </resources>
