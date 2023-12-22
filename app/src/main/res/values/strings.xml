@@ -27,4 +27,8 @@
     <string name="all_caught_up">All Caught Up!</string>
     <string name="know">Know</string>
     <string name="repeat">Repeat</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registration">Registration</string>
+    <string name="saving_cards">Log in to save your cards if you decide to uninstall the app</string>
 </resources>
