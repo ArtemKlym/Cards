@@ -25,6 +25,16 @@ class DataStorePreferenceManager(context: Context): ViewModel() {
     var notice
         get() = getBool(keyNotice)
         set(value) = setBool(keyNotice,value)
+    companion object {
+        @Volatile
+        private var instance: DataStorePreferenceManager? = null
+
+        fun getInstance(context: Context): DataStorePreferenceManager {
+            return instance ?: synchronized(this) {
+                instance ?: DataStorePreferenceManager(context).also { instance = it }
+            }
+        }
+    }
 
     private fun getBool(key: Preferences.Key<Boolean>): Boolean{
         return viewModelScope.async {
