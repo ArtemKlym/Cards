@@ -1,15 +1,14 @@
 package com.artemklymenko.cards.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.artemklymenko.cards.R
 import com.artemklymenko.cards.databinding.ActivityMainBinding
 import com.artemklymenko.cards.view.fragments.CardsFragment
 import com.artemklymenko.cards.view.fragments.HomeFragment
-import com.artemklymenko.cards.view.fragments.SettingsFragment
-import com.google.android.material.navigation.NavigationBarView.LABEL_VISIBILITY_SELECTED
-import com.google.android.material.navigation.NavigationBarView.LabelVisibility
+import com.artemklymenko.cards.view.fragments.SignInFragment
+import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,20 +21,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         setupBottomNavigation()
         binding.bottomNavigationView.selectedItemId = R.id.home
         replaceFragment(HomeFragment())
     }
-
     private fun setupBottomNavigation() {
         binding.apply {
-            bottomNavigationView.labelVisibilityMode = LABEL_VISIBILITY_SELECTED
+            bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_SELECTED
             bottomNavigationView.setOnItemSelectedListener {
                 val selectedFragment = when (it.itemId) {
                     R.id.home -> HomeFragment()
                     R.id.cards -> CardsFragment()
-                    R.id.settings -> SettingsFragment()
+                    R.id.settings -> SignInFragment()
                     else -> HomeFragment()
                 }
                 replaceFragment(selectedFragment)
@@ -43,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, fragment)
