@@ -32,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvAllCaughtUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -89,7 +90,8 @@
         app:layout_constraintStart_toEndOf="@+id/tvKnow"
         app:layout_constraintTop_toTopOf="@+id/tvKnow"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/iv_arrow" />
+        app:srcCompat="@drawable/iv_arrow"
+        android:contentDescription="@string/hint_where_to_swipe"/>
 
     <ImageView
         android:id="@+id/ivHintLeft"
@@ -103,6 +105,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvRepeat"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/iv_arrow" />
+        app:srcCompat="@drawable/iv_arrow"
+        android:contentDescription="@string/hint_where_to_swipe"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
