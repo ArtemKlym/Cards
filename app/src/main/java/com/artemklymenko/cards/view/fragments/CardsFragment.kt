@@ -19,7 +19,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CardsFragment : Fragment() {
 
-    private lateinit var binding: FragmentCardsBinding
+    private var _binding: FragmentCardsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: WordsViewModel by viewModels()
 
     @Inject
@@ -29,7 +30,7 @@ class CardsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCardsBinding.inflate(inflater, container, false)
+        _binding = FragmentCardsBinding.inflate(inflater, container, false)
 
         checkItems()
 
@@ -59,8 +60,12 @@ class CardsFragment : Fragment() {
     }
 
     companion object{
-
         @JvmStatic
         fun newInstance() = CardsFragment()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
