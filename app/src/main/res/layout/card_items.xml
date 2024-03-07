@@ -22,7 +22,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/translated"
-                android:textColor="@color/black"
                 android:textSize="24sp" />
 
             <TextView
@@ -31,7 +30,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/translated"
-                android:textColor="@color/black"
                 android:textSize="24sp" />
         </com.wajahatkarim3.easyflipview.EasyFlipView>
 
