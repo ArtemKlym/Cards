@@ -100,6 +100,11 @@ class DataStorePreferenceManager(context: Context): ViewModel() {
                 "DataStore if: currentDay = $currentDay lastOpened day = $lastOpenedDay"
             )
             counterOfConsecutiveDays++
+        }else if(currentDay == lastOpenedDay){
+            Log.d(
+                "DataStore",
+                "DataStore else if: currentDay = $currentDay lastOpened day = $lastOpenedDay"
+            )
         }else{
             counterOfConsecutiveDays = 0
         }
