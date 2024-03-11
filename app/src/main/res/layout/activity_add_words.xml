@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFE5FD"
     tools:context=".view.activities.AddWordsActivity">
 
     <com.google.android.material.card.MaterialCardView
@@ -71,7 +70,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/origin"
             android:inputType="text"
-            android:maxLength="37"/>
+            android:maxLength="37" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -95,7 +94,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/translated"
             android:inputType="text"
-            android:maxLength="37"/>
+            android:maxLength="37" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView

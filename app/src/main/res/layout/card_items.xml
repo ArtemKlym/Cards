@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <com.wajahatkarim3.easyflipview.EasyFlipView
             android:layout_width="wrap_content"
@@ -22,7 +22,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/translated"
-                android:textColor="@color/black"
                 android:textSize="24sp" />
 
             <TextView
@@ -31,8 +30,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/translated"
-                android:textColor="@color/black"
                 android:textSize="24sp" />
         </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+        <ImageButton
+            android:id="@+id/ibListen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/convert_text_to_speech"
+            android:minHeight="48dp"
+            card_view:srcCompat="@drawable/listen" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

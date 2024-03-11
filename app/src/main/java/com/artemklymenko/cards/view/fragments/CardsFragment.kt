@@ -1,20 +1,16 @@
 package com.artemklymenko.cards.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.artemklymenko.cards.R
 import com.artemklymenko.cards.adaptar.WordsAdapter
 import com.artemklymenko.cards.databinding.FragmentCardsBinding
 import com.artemklymenko.cards.vm.WordsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +19,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CardsFragment : Fragment() {
 
-    private lateinit var binding: FragmentCardsBinding
+    private var _binding: FragmentCardsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: WordsViewModel by viewModels()
 
     @Inject
@@ -32,8 +29,8 @@ class CardsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentCardsBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentCardsBinding.inflate(inflater, container, false)
 
         checkItems()
 
@@ -63,8 +60,12 @@ class CardsFragment : Fragment() {
     }
 
     companion object{
-
         @JvmStatic
         fun newInstance() = CardsFragment()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

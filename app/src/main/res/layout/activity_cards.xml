@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFE5FD"
     tools:context=".view.activities.CardsActivity">
 
     <com.yalantis.library.Koloda
@@ -32,6 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvAllCaughtUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -51,9 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/repeat"
+        android:textColor="#7E3FF2"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="#7E3FF2"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/koloda"
         app:layout_constraintEnd_toStartOf="@+id/tvKnow"
@@ -67,9 +67,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/know"
+        android:textColor="#7E3FF2"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="#7E3FF2"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/koloda"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,6 +82,7 @@
         android:id="@+id/ivHintRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/hint_where_to_swipe"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/tvKnow"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,8 +96,9 @@
         android:id="@+id/ivHintLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:contentDescription="@string/hint_where_to_swipe"
         android:scaleX="-1"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/tvRepeat"
         app:layout_constraintEnd_toStartOf="@+id/tvRepeat"
         app:layout_constraintHorizontal_bias="0.793"

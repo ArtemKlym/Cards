@@ -27,4 +27,20 @@
     <string name="all_caught_up">All Caught Up!</string>
     <string name="know">Know</string>
     <string name="repeat">Repeat</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registration">Registration</string>
+    <string name="saving_cards">Sign In to save your cards if you decide to uninstall the app</string>
+    <string name="create_an_account">Create an account to save your cards if you decide to uninstall the app</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="notification">Notification</string>
+    <string name="welcome">Welcome,</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="notice_text">Let\'s learn a few words!</string>
+    <string name="convert_text_to_speech">Convert text to speech</string>
+    <string name="hint_where_to_swipe">Hint where to swipe</string>
+    <string name="notification_title">Hi! It\'s Cards</string>
+    <string name="notification_text">Let\'s learn words today!</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
