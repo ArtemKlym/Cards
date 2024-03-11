@@ -38,8 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:contentDescription="@string/convert_text_to_speech"
             android:minHeight="48dp"
-            card_view:srcCompat="@drawable/listen"
-            android:contentDescription="@string/convert_text_to_speech"/>
+            card_view:srcCompat="@drawable/listen" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

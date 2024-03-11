@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/origin"
             android:inputType="text"
-            android:maxLength="37"/>
+            android:maxLength="37" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/translated"
             android:inputType="text"
-            android:maxLength="37"/>
+            android:maxLength="37" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView

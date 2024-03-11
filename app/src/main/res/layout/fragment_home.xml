@@ -31,11 +31,11 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
-            android:src="@drawable/iv_add"
             android:contentDescription="@string/add_word"
+            android:focusable="true"
+            android:src="@drawable/iv_add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:focusable="true" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/ivDays"
@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/baseline_local_fire_department_24"
             android:contentDescription="@string/flame_description"
+            android:src="@drawable/baseline_local_fire_department_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/amount_of_days"
-            android:textStyle="bold"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/ivDays"
             app:layout_constraintEnd_toStartOf="@+id/ivDays"
             app:layout_constraintTop_toTopOf="@+id/ivDays" />

@@ -23,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:hint="@string/origin"
-            android:maxLength="37"
             android:inputType="text"
+            android:maxLength="37"
             android:textColorHint="#616161" />
     </com.google.android.material.textfield.TextInputLayout>
 
