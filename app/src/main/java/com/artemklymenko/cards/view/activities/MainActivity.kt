@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.artemklymenko.cards.R
 import com.artemklymenko.cards.databinding.ActivityMainBinding
+import com.artemklymenko.cards.notification.NotificationScheduler
 import com.artemklymenko.cards.view.fragments.CardsFragment
 import com.artemklymenko.cards.view.fragments.HomeFragment
 import com.artemklymenko.cards.view.fragments.SignInFragment
+import com.artemklymenko.cards.vm.DataStorePreferenceManager
 import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
         binding.bottomNavigationView.selectedItemId = R.id.home
         replaceFragment(HomeFragment())
+
+        val dataStorePreference = DataStorePreferenceManager.getInstance(this)
+        if (dataStorePreference.notice) {
+            NotificationScheduler(this).scheduleReminderNotification()
+        }
     }
     private fun setupBottomNavigation() {
         binding.apply {
