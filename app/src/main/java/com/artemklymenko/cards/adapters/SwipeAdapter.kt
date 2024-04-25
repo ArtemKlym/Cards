@@ -1,4 +1,4 @@
-package com.artemklymenko.cards.adaptar
+package com.artemklymenko.cards.adapters
 
 
 import android.speech.tts.TextToSpeech
