@@ -8,7 +8,7 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.artemklymenko.cards.adaptar.WordsAdapter
+import com.artemklymenko.cards.adapters.WordsAdapter
 import com.artemklymenko.cards.databinding.FragmentCardsBinding
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.vm.WordsViewModel

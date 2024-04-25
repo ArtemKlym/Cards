@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.artemklymenko.cards.adaptar.SwipeAdapter
+import com.artemklymenko.cards.adapters.SwipeAdapter
 import com.artemklymenko.cards.databinding.ActivityCardsBinding
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.vm.WordsViewModel

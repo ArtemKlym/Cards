@@ -1,4 +1,4 @@
-package com.artemklymenko.cards.adaptar
+package com.artemklymenko.cards.adapters
 
 import android.content.Context
 import android.content.Intent
