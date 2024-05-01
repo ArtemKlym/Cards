@@ -22,7 +22,8 @@ object NotificationHandler {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent,
+        val pendingIntent = PendingIntent.getActivity(
+            context, 0, intent,
             PendingIntent.FLAG_IMMUTABLE
         )
 
@@ -30,8 +31,8 @@ object NotificationHandler {
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setContentTitle(R.string.notification_title.toString())
-            .setContentText(R.string.notification_text.toString())
+            .setContentTitle(context.getString(R.string.notification_title))
+            .setContentText(context.getString(R.string.notification_text))
             .setPriority(NotificationCompat.PRIORITY_MIN)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
