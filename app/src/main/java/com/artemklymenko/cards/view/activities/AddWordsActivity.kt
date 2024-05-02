@@ -1,19 +1,18 @@
 package com.artemklymenko.cards.view.activities
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.artemklymenko.cards.R
 import com.artemklymenko.cards.databinding.ActivityAddWordsBinding
 import com.artemklymenko.cards.di.ModelLanguage
+import com.artemklymenko.cards.utils.SpinnerUtils
+import com.artemklymenko.cards.utils.TextWatcherUtils
 import com.artemklymenko.cards.vm.TranslateViewModel
 import com.artemklymenko.cards.vm.WordsViewModel
 import com.google.android.material.textfield.TextInputEditText
@@ -48,65 +47,7 @@ class AddWordsActivity : AppCompatActivity() {
 
         setupViews()
         setupSpinners()
-
-        spinnerSourceLang.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, i: Int, l: Long) {
-                val selectedLanguage = languageArrayList[i]
-                translationViewModel.setSourceLanguage(selectedLanguage.languageCode)
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
-
-        spinnerTargetLang.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, i: Int, l: Long) {
-                val selectedLanguage = languageArrayList[i]
-                translationViewModel.setTargetLanguage(selectedLanguage.languageCode)
-                if(sourceLang.text!!.isNotEmpty()){
-                    validateData()
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
-
-        sourceLang.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(p0: Editable?) {
-                binding.tilOrigin.error = null
-                binding.tilTranslated.error = null
-                validateData()
-            }
-        })
-
-        translateBtn.setOnClickListener {
-            if(checkFields()) {
-                val result = wordsViewModel.insertWords(
-                    sourceLang.text!!.toString(),
-                    targetLang.text!!.toString()
-                )
-                checkResult(result)
-            }else{
-                binding.tilOrigin.error = "Fill field"
-                binding.tilTranslated.error = "Fill field"
-            }
-        }
-    }
-
-    private fun checkResult(result: Boolean) {
-        if(result){
-            binding.apply {
-                sourceLang.text!!.clear()
-                targetLang.text!!.clear()
-            }
-        }else{
-            Toast.makeText(this, "Failed to add a card", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun checkFields(): Boolean {
-        return sourceLang.text!!.isNotEmpty() && targetLang.text!!.isNotEmpty()
+        setListeners()
     }
 
     private fun setupViews() {
@@ -118,15 +59,69 @@ class AddWordsActivity : AppCompatActivity() {
     }
 
     private fun setupSpinners() {
-        val languageAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languageArrayList.map { it.languageTitle })
+        val languageAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            languageArrayList.map { it.languageTitle })
         spinnerSourceLang.adapter = languageAdapter
         spinnerTargetLang.adapter = languageAdapter
+    }
+
+    private fun setListeners() {
+        SpinnerUtils.setOnItemSelectedListener(spinnerSourceLang) { position ->
+            val selectedLanguage = languageArrayList[position]
+            translationViewModel.setSourceLanguage(selectedLanguage.languageCode)
+        }
+
+        SpinnerUtils.setOnItemSelectedListener(spinnerTargetLang) { position ->
+            val selectedLanguage = languageArrayList[position]
+            translationViewModel.setTargetLanguage(selectedLanguage.languageCode)
+            if (sourceLang.text!!.isNotEmpty()) {
+                validateData()
+            }
+        }
+
+        sourceLang.addTextChangedListener(TextWatcherUtils.afterTextChanged {
+            binding.tilOrigin.error = null
+            binding.tilTranslated.error = null
+            validateData()
+        })
+
+        translateBtn.setOnClickListener {
+            if (checkFields()) {
+                val result = wordsViewModel.insertWords(
+                    sourceLang.text!!.toString(),
+                    targetLang.text!!.toString()
+                )
+                checkResult(result)
+            } else {
+                binding.tilOrigin.error = getString(R.string.enter_text_to_translate)
+                binding.tilTranslated.error = getString(R.string.enter_text_to_translate)
+            }
+        }
+    }
+
+    private fun checkResult(result: Boolean) {
+        if (result) {
+            binding.apply {
+                sourceLang.text!!.clear()
+                targetLang.text!!.clear()
+                translateBtn.isEnabled = false
+                tilOrigin.error = null
+            }
+        } else {
+            Toast.makeText(this, "Failed to add a card", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkFields(): Boolean {
+        return sourceLang.text!!.isNotEmpty() && targetLang.text!!.isNotEmpty()
     }
 
     private fun validateData() {
         val sourceLangText = sourceLang.text.toString().trim()
         if (sourceLangText.isEmpty()) {
-            binding.tilOrigin.error = "Enter text to translate"
+            binding.tilOrigin.error = getString(R.string.enter_text_to_translate)
         } else {
             startTranslation()
             binding.tilOrigin.error = null
@@ -135,10 +130,12 @@ class AddWordsActivity : AppCompatActivity() {
 
     private fun startTranslation() {
         val sourceText = sourceLang.text.toString()
+        binding.tvModel.text = getString(R.string.translating)
         translationViewModel.translateText(sourceText, { translatedText ->
-            binding.tvModel.text = "Translating..."
+            binding.tvModel.text = null
             targetLang.setText(translatedText)
-            translateBtn.isEnabled = sourceLang.text!!.isNotEmpty() && targetLang.text!!.isNotEmpty()
+            translateBtn.isEnabled =
+                sourceLang.text!!.isNotEmpty() && targetLang.text!!.isNotEmpty()
         }, { e ->
             Log.d(TAG, "startTranslation: $e")
             Toast.makeText(this, "Failed to translate due to: $e", Toast.LENGTH_SHORT).show()

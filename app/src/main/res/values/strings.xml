@@ -43,4 +43,26 @@
     <string name="notification_title">Hi! It\'s Cards</string>
     <string name="notification_text">Let\'s learn words today!</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="account_has_been_created">Account has been created</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="welcome_back">Welcome</string>
+    <string name="icon_logout">icon logout</string>
+    <string name="icon_person">icon person</string>
+    <string name="logout">Logout</string>
+    <string name="find_a_card">Find a card &#8230;</string>
+    <string name="user">User</string>
+    <string name="please_enter_a_valid_email_address">Please enter a valid email address</string>
+    <string name="email_can_t_be_empty">Email can\'t be empty</string>
+    <string name="incorrect_credentials">Incorrect credentials</string>
+    <string name="password_can_t_be_empty">Password can\'t be empty</string>
+    <string name="the_email_is_too_short">The email is too short</string>
+    <string name="the_password_is_too_short">The password is too short</string>
+    <string name="passwords_don_t_match">Passwords don\'t match</string>
+    <string name="the_password_must_contain_at_least_1_special_char">The password must contain at least 1 special char</string>
+    <string name="the_password_must_contain_at_least_1_uppercase_letter">The password must contain at least 1 uppercase letter</string>
+    <string name="the_password_must_contain_at_least_1_number">The password must contain at least 1 number</string>
+    <string name="the_confirmed_password_can_t_be_empty">The confirmed password can\'t be empty</string>
+    <string name="enter_text_to_translate">Enter text to translate</string>
+    <string name="translating">Translating&#8230;</string>
+    <string name="failed_to_add_a_card">Failed to add a card</string>
 </resources>
