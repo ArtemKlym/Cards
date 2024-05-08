@@ -65,4 +65,8 @@
     <string name="enter_text_to_translate">Enter text to translate</string>
     <string name="translating">Translating&#8230;</string>
     <string name="failed_to_add_a_card">Failed to add a card</string>
+    <string name="incorrect_field">Incorrect field</string>
+    <string name="updated">updated</string>
+    <string name="deleted">deleted</string>
+    <string name="card_has_been">Card has been</string>
 </resources>
