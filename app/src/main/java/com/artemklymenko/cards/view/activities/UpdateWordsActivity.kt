@@ -1,12 +1,12 @@
 package com.artemklymenko.cards.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.artemklymenko.cards.R
 import com.artemklymenko.cards.databinding.ActivityUpdateWordsBinding
-import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.vm.WordsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -28,7 +28,6 @@ class UpdateWordsActivity : AppCompatActivity() {
         binding = ActivityUpdateWordsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         intent.extras?.let {
             wordsId = it.getInt("wordsId")
         }
@@ -37,12 +36,16 @@ class UpdateWordsActivity : AppCompatActivity() {
             showSelectedCard(wordsId)
 
             btnUpdate.setOnClickListener {
-              val result = viewModel.updateWords(
-                  wordsId,
-                  etUpdateOrigin.text.toString(),
-                  etUpdateTranslated.text.toString()
-              )
-                checkResult(result, "updated")
+                val result = viewModel.updateWords(
+                    wordsId,
+                    etUpdateOrigin.text.toString(),
+                    etUpdateTranslated.text.toString()
+                )
+                checkResult(
+                    result,
+                    this@UpdateWordsActivity.getString(R.string.updated),
+                    this@UpdateWordsActivity
+                )
             }
 
             btnDelete.setOnClickListener {
@@ -51,19 +54,24 @@ class UpdateWordsActivity : AppCompatActivity() {
                     etUpdateOrigin.text.toString(),
                     etUpdateTranslated.text.toString()
                 )
-                checkResult(result, "deleted")
+                checkResult(
+                    result,
+                    this@UpdateWordsActivity.getString(R.string.deleted),
+                    this@UpdateWordsActivity
+                )
             }
         }
     }
 
-    private fun checkResult(result: Boolean, action: String) {
-        if(result){
-            Toast.makeText(this, "Card has been $action", Toast.LENGTH_SHORT).show()
+    private fun checkResult(result: Boolean, action: String, context: Context) {
+        if (result) {
+            val message = context.getString(R.string.card_has_been) + " $action"
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             finish()
-        }else{
+        } else {
             binding.apply {
-                etUpdateOrigin.error = "Incorrect field"
-                etUpdateTranslated.error = "Incorrect field"
+                etUpdateOrigin.error = context.getString(R.string.incorrect_field)
+                etUpdateTranslated.error = context.getString(R.string.incorrect_field)
             }
         }
     }
