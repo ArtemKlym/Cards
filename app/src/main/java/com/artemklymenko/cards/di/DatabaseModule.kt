@@ -22,7 +22,7 @@ object DatabaseModule {
         context,
         WordDB::class.java,
         DATABASE_NAME
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     @Provides
     fun provideWordsDao(db: WordDB) = db.wordsDao()

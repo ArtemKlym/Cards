@@ -25,4 +25,10 @@ interface WordDao {
 
     @Query("SELECT * FROM $TABLE_NAME WHERE wordsId like :id")
     suspend fun getWords(id: Int): Words
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE sid IS NULL")
+    suspend fun getUnsyncedWords(): List<Words>
+
+    @Query("UPDATE $TABLE_NAME SET sid = :newSid WHERE wordsId = :localId")
+    suspend fun updateWordsSid(localId: Int, newSid: String)
 }
