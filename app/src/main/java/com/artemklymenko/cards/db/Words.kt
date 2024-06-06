@@ -9,5 +9,9 @@ data class Words(
     @PrimaryKey(autoGenerate = true)
     val wordsId: Int = 0,
     val origin: String = "",
-    val translated: String = ""
+    val translated: String = "",
+    val sourceLangCode: String ="",
+    val targetLangCode: String = "",
+    var sid: String? = null,
+    val sync: Long = System.currentTimeMillis()
 )
