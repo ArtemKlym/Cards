@@ -1,6 +1,8 @@
-package com.artemklymenko.cards.data
+package com.artemklymenko.cards.firestore.repository.impl
 
-import com.artemklymenko.cards.data.utils.await
+import com.artemklymenko.cards.firestore.utils.await
+import com.artemklymenko.cards.firestore.model.Resource
+import com.artemklymenko.cards.firestore.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.artemklymenko.cards.data.utils
+package com.artemklymenko.cards.firestore.utils
 
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.ExperimentalCoroutinesApi

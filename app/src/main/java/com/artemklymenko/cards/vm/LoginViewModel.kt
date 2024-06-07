@@ -2,8 +2,8 @@ package com.artemklymenko.cards.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.artemklymenko.cards.data.AuthRepository
-import com.artemklymenko.cards.data.Resource
+import com.artemklymenko.cards.firestore.repository.AuthRepository
+import com.artemklymenko.cards.firestore.model.Resource
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
