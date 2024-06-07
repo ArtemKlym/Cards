@@ -1,7 +1,7 @@
 package com.artemklymenko.cards.di
 
-import com.artemklymenko.cards.data.AuthRepository
-import com.artemklymenko.cards.data.AuthRepositoryImpl
+import com.artemklymenko.cards.firestore.repository.AuthRepository
+import com.artemklymenko.cards.firestore.repository.impl.AuthRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
