@@ -1,5 +1,6 @@
-package com.artemklymenko.cards.data
+package com.artemklymenko.cards.firestore.repository
 
+import com.artemklymenko.cards.firestore.model.Resource
 import com.google.firebase.auth.FirebaseUser
 
 interface AuthRepository {
