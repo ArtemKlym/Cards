@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.artemklymenko.cards.R
-import com.artemklymenko.cards.data.Resource
+import com.artemklymenko.cards.firestore.model.Resource
 import com.artemklymenko.cards.databinding.FragmentSignUpBinding
 import com.artemklymenko.cards.domain.validation.handleRegisterValidation
 import com.artemklymenko.cards.vm.LoginViewModel
