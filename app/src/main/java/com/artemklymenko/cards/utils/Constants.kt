@@ -6,4 +6,8 @@ object Constants {
     const val TAG_REMINDER_WORKER = "reminder_worker"
     const val TAG_WORK_MANAGER = "work_manager"
     const val CHANNEL_ID = "transactions_reminder_channel"
+
+    //Firebase
+    const val USERS = "users"
+    const val CARDS = "cards"
 }
