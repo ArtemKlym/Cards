@@ -7,6 +7,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.artemklymenko.cards.R
 import com.artemklymenko.cards.databinding.ActivityUpdateWordsBinding
+import com.artemklymenko.cards.db.Words
+import com.artemklymenko.cards.firestore.model.Response
+import com.artemklymenko.cards.vm.FirestoreViewModel
+import com.artemklymenko.cards.vm.LoginViewModel
 import com.artemklymenko.cards.vm.WordsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -19,9 +23,20 @@ class UpdateWordsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUpdateWordsBinding
 
-    private val viewModel: WordsViewModel by viewModels()
+    private val wordsViewModel: WordsViewModel by viewModels()
+    private val firestoreViewModel: FirestoreViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
 
     private var wordsId: Int = 0
+    private var sid: String? = null
+    private var source: String? = null
+    private var target: String? = null
+    private var logIn = false
+
+    override fun onStart() {
+        super.onStart()
+        logIn = loginViewModel.currentUser != null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,41 +45,87 @@ class UpdateWordsActivity : AppCompatActivity() {
 
         intent.extras?.let {
             wordsId = it.getInt("wordsId")
+            sid = it.getString("sid")
+            source = it.getString("sourceCode")
+            target = it.getString("targetCode")
         }
 
         binding.apply {
             showSelectedCard(wordsId)
 
             btnUpdate.setOnClickListener {
-                val result = viewModel.updateWords(
-                    wordsId,
-                    etUpdateOrigin.text.toString(),
-                    etUpdateTranslated.text.toString()
+                val card = Words(
+                    wordsId, etUpdateOrigin.text.toString(),
+                    etUpdateTranslated.text.toString(),
+                    sourceLangCode = source!!,
+                    targetLangCode = target!!
                 )
-                checkResult(
-                    result,
-                    this@UpdateWordsActivity.getString(R.string.updated),
-                    this@UpdateWordsActivity
-                )
+                if (logIn) {
+                    firestoreViewModel.updateCardFromFirestore(
+                        loginViewModel.currentUser!!.uid,
+                        sid,
+                        card
+                    )
+                    firestoreViewModel.updateResultCard.observe(this@UpdateWordsActivity) { response ->
+                        if (response is Response.Success) {
+                            val result = wordsViewModel.updateWords(card.copy(sid = response.data))
+                            checkResult(
+                                result,
+                                this@UpdateWordsActivity.getString(R.string.updated),
+                                this@UpdateWordsActivity
+                            )
+                        }
+                    }
+                } else {
+                    val result = wordsViewModel.updateWords(card)
+                    checkResult(
+                        result,
+                        this@UpdateWordsActivity.getString(R.string.updated),
+                        this@UpdateWordsActivity
+                    )
+                }
             }
 
             btnDelete.setOnClickListener {
-                val result = viewModel.deleteWords(
-                    wordsId,
-                    etUpdateOrigin.text.toString(),
+                val card = Words(
+                    wordsId, etUpdateOrigin.text.toString(),
                     etUpdateTranslated.text.toString()
                 )
-                checkResult(
-                    result,
-                    this@UpdateWordsActivity.getString(R.string.deleted),
-                    this@UpdateWordsActivity
-                )
+                if (logIn) {
+                    firestoreViewModel.deleteCardFromFirestore(
+                        loginViewModel.currentUser!!.uid,
+                        sid
+                    )
+                    firestoreViewModel.deleteCardResult.observe(this@UpdateWordsActivity) { response ->
+                        if (response is Response.Success) {
+                            val result = wordsViewModel.deleteWords(card)
+                            checkResult(
+                                result,
+                                this@UpdateWordsActivity.getString(R.string.deleted),
+                                this@UpdateWordsActivity
+                            )
+                        } else {
+                            Toast.makeText(
+                                this@UpdateWordsActivity,
+                                response.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+                    val result = wordsViewModel.deleteWords(card)
+                    checkResult(
+                        result,
+                        this@UpdateWordsActivity.getString(R.string.deleted),
+                        this@UpdateWordsActivity
+                    )
+                }
             }
         }
     }
 
-    private fun checkResult(result: Boolean, action: String, context: Context) {
-        if (result) {
+    private fun checkResult(result: Response<Boolean>, action: String, context: Context) {
+        if (result is Response.Success) {
             val message = context.getString(R.string.card_has_been) + " $action"
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             finish()
@@ -78,7 +139,7 @@ class UpdateWordsActivity : AppCompatActivity() {
 
     private fun showSelectedCard(wordsId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val words = viewModel.getWords(wordsId)
+            val words = wordsViewModel.getWords(wordsId)
             runOnUiThread {
                 binding.etUpdateOrigin.setText(words.origin)
                 binding.etUpdateTranslated.setText(words.translated)
