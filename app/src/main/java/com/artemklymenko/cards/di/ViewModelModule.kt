@@ -1,6 +1,6 @@
 package com.artemklymenko.cards.di
 
-import com.artemklymenko.cards.repository.WordsRepositoryDb
+import com.artemklymenko.cards.db.WordsRepositoryDb
 import com.artemklymenko.cards.vm.WordsViewModel
 import dagger.Module
 import dagger.Provides
