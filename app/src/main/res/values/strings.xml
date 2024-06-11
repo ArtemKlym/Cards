@@ -68,5 +68,6 @@
     <string name="incorrect_field">Incorrect field</string>
     <string name="updated">updated</string>
     <string name="deleted">deleted</string>
+    <string name="added">added</string>
     <string name="card_has_been">Card has been</string>
 </resources>
