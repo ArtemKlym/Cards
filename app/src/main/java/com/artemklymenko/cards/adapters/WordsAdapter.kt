@@ -39,6 +39,9 @@ class WordsAdapter @Inject constructor():
                 root.setOnClickListener {
                     val intent = Intent(context, UpdateWordsActivity::class.java)
                     intent.putExtra("wordsId", words.wordsId)
+                    intent.putExtra("sid", words.sid)
+                    intent.putExtra("sourceCode", words.sourceLangCode)
+                    intent.putExtra("targetCode", words.targetLangCode)
                     context.startActivity(intent)
                 }
             }
