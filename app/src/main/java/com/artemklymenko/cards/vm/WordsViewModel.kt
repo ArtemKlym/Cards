@@ -3,7 +3,8 @@ package com.artemklymenko.cards.vm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.artemklymenko.cards.db.Words
-import com.artemklymenko.cards.repository.WordsRepositoryDb
+import com.artemklymenko.cards.db.WordsRepositoryDb
+import com.artemklymenko.cards.firestore.model.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,39 +16,36 @@ class WordsViewModel @Inject constructor(
     private val repositoryDb: WordsRepositoryDb
 ): ViewModel(){
 
-    fun insertWords(origin: String, translated: String): Boolean{
-        return if(origin.isNotEmpty() && translated.isNotEmpty()){
-            viewModelScope.launch(Dispatchers.IO){
-                val words = Words(0, origin, translated)
-                repositoryDb.insertWords(words)
+    fun insertWords(card: Words): Response<Boolean> {
+        return try {
+            viewModelScope.launch {
+                repositoryDb.insertWords(card)
             }
-            true
-        }else{
-            false
+            Response.Success(true)
+        }catch (e: Exception){
+            Response.Failure(e)
         }
     }
 
-    fun updateWords(id: Int, origin: String, translated: String): Boolean{
-        return if(origin.isNotEmpty() && translated.isNotEmpty()){
-            viewModelScope.launch(Dispatchers.IO){
-                val words = Words(id, origin, translated)
-                repositoryDb.updateWords(words)
+    fun updateWords(card: Words): Response<Boolean>{
+        return try {
+            viewModelScope.launch {
+                repositoryDb.updateWords(card)
             }
-            true
-        }else{
-            false
+            Response.Success(true)
+        }catch (e: Exception){
+            Response.Failure(e)
         }
     }
 
-    fun deleteWords(id: Int, origin: String, translated: String): Boolean{
-        return if(origin.isNotEmpty() && translated.isNotEmpty()){
-            viewModelScope.launch(Dispatchers.IO){
-                val words = Words(id, origin, translated)
-                repositoryDb.deleteWords(words)
+    fun deleteWords(card: Words): Response<Boolean> {
+        return try {
+            viewModelScope.launch {
+                repositoryDb.deleteWords(card)
             }
-            true
-        }else{
-            false
+            Response.Success(true)
+        }catch (e: Exception){
+            Response.Failure(e)
         }
     }
 
