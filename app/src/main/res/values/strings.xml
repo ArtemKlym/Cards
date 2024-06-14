@@ -70,4 +70,5 @@
     <string name="deleted">deleted</string>
     <string name="added">added</string>
     <string name="card_has_been">Card has been</string>
+    <string name="failed_to_synchronize_data">failed to synchronize data</string>
 </resources>

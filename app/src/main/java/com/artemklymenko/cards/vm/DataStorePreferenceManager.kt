@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,6 +35,7 @@ class DataStorePreferenceManager(context: Context): ViewModel() {
     private val keyLastOpenedMonth = intPreferencesKey("last_opened_month")
     private val keyLastOpenedYear = intPreferencesKey("last_opened_year")
     private val keyIncrement = intPreferencesKey("count_of_days")
+    private val keyLastSync = longPreferencesKey("last_sync")
 
     init {
         initializeIfNeeded()
@@ -52,6 +54,9 @@ class DataStorePreferenceManager(context: Context): ViewModel() {
         }
     }
 
+    var lastSyncTime: Long
+        get() = runBlocking {getLong(keyLastSync) ?: 0L}
+        set(value) = setLong(keyLastSync, value)
     var notice
         get() = getBool(keyNotice)
         set(value) = setBool(keyNotice,value)
@@ -62,6 +67,18 @@ class DataStorePreferenceManager(context: Context): ViewModel() {
         fun getInstance(context: Context): DataStorePreferenceManager {
             return instance ?: synchronized(this) {
                 instance ?: DataStorePreferenceManager(context).also { instance = it }
+            }
+        }
+    }
+
+    private suspend fun getLong(key: Preferences.Key<Long>): Long? {
+        return dataStore.data.first()[key]
+    }
+
+    private fun setLong(key: Preferences.Key<Long>, value: Long) {
+        viewModelScope.launch {
+            dataStore.edit { preferences ->
+                preferences[key] = value
             }
         }
     }
