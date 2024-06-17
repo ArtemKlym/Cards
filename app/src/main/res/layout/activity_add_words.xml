@@ -52,49 +52,46 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilOrigin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_height="72dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         app:endIconDrawable="@drawable/iv_translate"
         app:endIconMode="custom"
         app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/cvTranslated"
+        app:layout_constraintStart_toStartOf="@+id/cvOrigin"
         app:layout_constraintTop_toBottomOf="@+id/cvOrigin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etOrigin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/origin"
             android:inputType="text"
-            android:maxLength="37" />
+            android:maxLength="37"
+            android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTranslated"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_height="72dp"
         app:endIconDrawable="@drawable/iv_translate"
         app:endIconMode="custom"
         app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/tilOrigin"
+        app:layout_constraintStart_toStartOf="@+id/tilOrigin"
         app:layout_constraintTop_toBottomOf="@+id/tilOrigin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTranslated"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/translated"
             android:inputType="text"
-            android:maxLength="37" />
+            android:maxLength="37"
+            android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
