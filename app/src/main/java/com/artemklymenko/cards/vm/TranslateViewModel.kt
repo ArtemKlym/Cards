@@ -2,6 +2,7 @@ package com.artemklymenko.cards.vm
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.Translation
@@ -49,10 +50,12 @@ class TranslateViewModel @Inject constructor(
                         onTranslationResult(it)
                     }
                     .addOnFailureListener { e ->
+                        Log.e("TranslationError", "Translation failed", e)
                         onError(e)
                     }
             }
             .addOnFailureListener { e ->
+                Log.e("TranslationError", "Model download failed with Exception: ${e.localizedMessage}", e)
                 onError(e)
             }
     }
