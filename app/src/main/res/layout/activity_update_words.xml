@@ -8,7 +8,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilUpdateOrigin"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
@@ -21,16 +21,16 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUpdateOrigin"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="match_parent"
             android:hint="@string/origin"
             android:inputType="text"
             android:maxLength="37"
-            android:textColorHint="#616161" />
+            android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilUpdateTranslated"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
@@ -43,38 +43,34 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUpdateTranslated"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="match_parent"
             android:hint="@string/translated"
             android:inputType="text"
             android:maxLength="37"
-            android:textColorHint="#616161" />
+            android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnUpdate"
-        android:layout_width="174dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
         android:text="@string/update"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="@+id/tilUpdateTranslated"
         app:layout_constraintStart_toEndOf="@+id/btnDelete"
         app:layout_constraintTop_toBottomOf="@+id/tilUpdateTranslated" />
 
     <Button
         android:id="@+id/btnDelete"
         style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="174dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginEnd="8dp"
         android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="@+id/btnUpdate"
         app:layout_constraintEnd_toStartOf="@+id/btnUpdate"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tilUpdateTranslated"
         app:layout_constraintTop_toTopOf="@+id/btnUpdate"
         app:layout_constraintVertical_bias="0.0" />
 
