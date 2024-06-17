@@ -47,16 +47,13 @@ class AddWordsActivity : AppCompatActivity() {
         private const val TAG = "AddWordsTag"
     }
 
-    override fun onStart() {
-        super.onStart()
-        logIn = loginViewModel.currentUser != null
-        Log.d(TAG, "current user = $logIn")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddWordsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        logIn = loginViewModel.currentUser != null
+        Log.d(TAG, "current user = $logIn")
 
         loadAvailableLanguages()
 
@@ -171,8 +168,8 @@ class AddWordsActivity : AppCompatActivity() {
             translateBtn.isEnabled =
                 sourceLang.text!!.isNotEmpty() && targetLang.text!!.isNotEmpty()
         }, { e ->
-            Log.d(TAG, "startTranslation: $e")
-            Toast.makeText(this, "Failed to translate due to: $e", Toast.LENGTH_SHORT).show()
+            Log.e(TAG, "startTranslation: ${e.printStackTrace()}")
+            Toast.makeText(this, getString(R.string.failed_to_perform_automatic_translation), Toast.LENGTH_SHORT).show()
         })
     }
 
