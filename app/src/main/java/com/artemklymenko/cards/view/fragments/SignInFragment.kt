@@ -112,8 +112,8 @@ class SignInFragment : Fragment() {
 
     private fun switchToSignUpFragment() {
         val signUpFragment = SignUpFragment.newInstance()
-        childFragmentManager.beginTransaction()
-            .replace(R.id.frameLayoutSignIn, signUpFragment)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout, signUpFragment)
             .addToBackStack(null)
             .commit()
     }
