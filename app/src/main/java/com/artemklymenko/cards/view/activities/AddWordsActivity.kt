@@ -168,6 +168,7 @@ class AddWordsActivity : AppCompatActivity() {
             translateBtn.isEnabled =
                 sourceLang.text!!.isNotEmpty() && targetLang.text!!.isNotEmpty()
         }, { e ->
+            binding.tvModel.text = null
             Log.e(TAG, "startTranslation: ${e.printStackTrace()}")
             Toast.makeText(this, getString(R.string.failed_to_perform_automatic_translation), Toast.LENGTH_SHORT).show()
         })
