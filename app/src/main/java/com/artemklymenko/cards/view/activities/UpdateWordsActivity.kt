@@ -9,6 +9,7 @@ import com.artemklymenko.cards.R
 import com.artemklymenko.cards.databinding.ActivityUpdateWordsBinding
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.firestore.model.Response
+import com.artemklymenko.cards.utils.Network
 import com.artemklymenko.cards.vm.FirestoreViewModel
 import com.artemklymenko.cards.vm.LoginViewModel
 import com.artemklymenko.cards.vm.WordsViewModel
@@ -60,7 +61,7 @@ class UpdateWordsActivity : AppCompatActivity() {
                     sourceLangCode = source!!,
                     targetLangCode = target!!
                 )
-                if (logIn) {
+                if (logIn && Network.isConnected(this@UpdateWordsActivity)) {
                     firestoreViewModel.updateCardFromFirestore(
                         loginViewModel.currentUser!!.uid,
                         sid,
@@ -91,7 +92,7 @@ class UpdateWordsActivity : AppCompatActivity() {
                     wordsId, etUpdateOrigin.text.toString(),
                     etUpdateTranslated.text.toString()
                 )
-                if (logIn) {
+                if (logIn && Network.isConnected(this@UpdateWordsActivity)) {
                     firestoreViewModel.deleteCardFromFirestore(
                         loginViewModel.currentUser!!.uid,
                         sid

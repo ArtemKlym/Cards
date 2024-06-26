@@ -13,6 +13,7 @@ import com.artemklymenko.cards.databinding.ActivityAddWordsBinding
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.di.ModelLanguage
 import com.artemklymenko.cards.firestore.model.Response
+import com.artemklymenko.cards.utils.Network
 import com.artemklymenko.cards.utils.SpinnerUtils
 import com.artemklymenko.cards.utils.TextWatcherUtils
 import com.artemklymenko.cards.vm.FirestoreViewModel
@@ -107,7 +108,7 @@ class AddWordsActivity : AppCompatActivity() {
                     0, sourceLang.text!!.toString(),
                     targetLang.text!!.toString(), sourceLangCode, targetLangCode
                 )
-                if (logIn) {
+                if(logIn && Network.isConnected(this)){
                     firestoreViewModel.addCardToFirestore(loginViewModel.currentUser!!.uid, words)
                     firestoreViewModel.addCardResult.observe(this@AddWordsActivity) { response ->
                         if (response is Response.Success) {

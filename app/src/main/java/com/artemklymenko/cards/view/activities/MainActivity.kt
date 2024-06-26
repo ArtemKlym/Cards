@@ -13,6 +13,7 @@ import com.artemklymenko.cards.db.WordsRepositoryDb
 import com.artemklymenko.cards.firestore.repository.CardsRepository
 import com.artemklymenko.cards.notification.NotificationScheduler
 import com.artemklymenko.cards.sync.SyncManager
+import com.artemklymenko.cards.utils.Network
 import com.artemklymenko.cards.view.fragments.CardsFragment
 import com.artemklymenko.cards.view.fragments.HomeFragment
 import com.artemklymenko.cards.view.fragments.SettingsFragment
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         logIn = loginViewModel.currentUser != null
-        if (logIn) {
+        if (logIn && Network.isConnected(this)) {
             synchronizeUserData()
         }
     }
