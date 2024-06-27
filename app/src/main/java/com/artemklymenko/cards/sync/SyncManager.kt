@@ -41,9 +41,7 @@ class SyncManager @Inject constructor(
             localCards.forEach { card ->
                 val newSidResponse = firestoreRepository.addCardToFirestore(userId, card)
                 if (newSidResponse is Response.Success) {
-                    val newSid = newSidResponse.data
-                    firestoreRepository.updateCardSid(userId, card.wordsId, newSid)
-                    wordsRepository.updateWordsSid(card.wordsId, newSid)
+                    wordsRepository.updateWordsSid(card.wordsId, newSidResponse.data)
                 }
             }
         } else {
@@ -60,9 +58,7 @@ class SyncManager @Inject constructor(
             unsyncedCards.forEach { card ->
                 val newSidResponse = firestoreRepository.addCardToFirestore(userId, card)
                 if (newSidResponse is Response.Success) {
-                    val newSid = newSidResponse.data
-                    firestoreRepository.updateCardSid(userId, card.wordsId, newSid)
-                    wordsRepository.updateWordsSid(card.wordsId, newSid)
+                    wordsRepository.updateWordsSid(card.wordsId, newSidResponse.data)
                 }
             }
         }
