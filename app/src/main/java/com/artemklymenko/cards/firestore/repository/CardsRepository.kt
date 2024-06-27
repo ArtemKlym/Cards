@@ -12,6 +12,4 @@ interface CardsRepository {
     suspend fun deleteCardFromFirestore(userId: String, sid: String?): Response<Boolean>
 
     suspend fun updateCardInFirestore(userId: String, sid: String?, words: Words): Response<String>
-
-    suspend fun updateCardSid(userId: String, wordsId: Int, newSid: String): Response<Boolean>
 }

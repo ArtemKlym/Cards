@@ -123,21 +123,4 @@ class CardsRepositoryImpl @Inject constructor(
             Response.Failure(e)
         }
     }
-
-    override suspend fun updateCardSid(
-        userId: String,
-        wordsId: Int,
-        newSid: String
-    ): Response<Boolean> {
-        return try {
-            val cardDocumentRef = cardsRef.firestore.collection(USERS)
-                .document(userId)
-                .collection(CARDS)
-                .document(wordsId.toString())
-            cardDocumentRef.update("sid", newSid).await()
-            Response.Success(true)
-        } catch (e: Exception) {
-            Response.Failure(e)
-        }
-    }
 }
