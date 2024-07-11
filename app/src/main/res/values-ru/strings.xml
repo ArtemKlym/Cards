@@ -33,7 +33,7 @@
     <string name="saving_cards">Войдите в систему, чтобы сохранить свои карточки, если вы решите удалить приложение</string>
     <string name="create_an_account">Создайте учетную запись, чтобы сохранить свои карточки, если вы решите удалить приложение</string>
     <string name="sign_up">Зарегестрироваться</string>
-    <string name="sign_in">Ввойти</string>
+    <string name="sign_in">Войти</string>
     <string name="notification">Notification</string>
     <string name="welcome">Добро пожаловать,</string>
     <string name="already_have_an_account">Уже есть учетная запись?</string>
