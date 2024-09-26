@@ -14,3 +14,8 @@
 .cxx
 local.properties
 google-services.json
+/app/release/app-release.apk
+/.idea/deploymentTargetSelector.xml
+/.idea/migrations.xml
+/.idea/other.xml
+/app/release/output-metadata.json
