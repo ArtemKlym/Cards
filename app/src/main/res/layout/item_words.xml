@@ -48,7 +48,6 @@
         android:contentDescription="@string/ivOrigin_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iv_origin"
-        app:tint="@color/material_dynamic_primary40" />
+        app:srcCompat="@drawable/iv_origin"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
