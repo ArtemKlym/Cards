@@ -16,6 +16,7 @@ import com.artemklymenko.cards.firestore.model.Response
 import com.artemklymenko.cards.utils.Network
 import com.artemklymenko.cards.utils.SpinnerUtils
 import com.artemklymenko.cards.utils.TextWatcherUtils
+import com.artemklymenko.cards.vm.DataStorePreferenceManager
 import com.artemklymenko.cards.vm.FirestoreViewModel
 import com.artemklymenko.cards.vm.LoginViewModel
 import com.artemklymenko.cards.vm.TranslateViewModel
@@ -53,6 +54,8 @@ class AddWordsActivity : AppCompatActivity() {
         binding = ActivityAddWordsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val dataStorePreferenceManager = DataStorePreferenceManager.getInstance(this)
+
         logIn = loginViewModel.currentUser != null
         Log.d(TAG, "current user = $logIn")
 
@@ -60,7 +63,7 @@ class AddWordsActivity : AppCompatActivity() {
 
         setupViews()
         setupSpinners()
-        setListeners()
+        setListeners(dataStorePreferenceManager)
     }
 
     private fun setupViews() {
@@ -80,19 +83,53 @@ class AddWordsActivity : AppCompatActivity() {
         spinnerTargetLang.adapter = languageAdapter
     }
 
-    private fun setListeners() {
+    private fun setListeners(dataStorePreferenceManager: DataStorePreferenceManager) {
+        var isInitializedSource = false
+        var isInitializedTarget = false
+
+        val initialSourceCode = dataStorePreferenceManager.sourceLang
+        val initialTargetCode = dataStorePreferenceManager.targetLang
+
+        val initialSourcePosition = languageArrayList.indexOfFirst { it.languageCode == initialSourceCode }
+        val initialTargetPosition = languageArrayList.indexOfFirst { it.languageCode == initialTargetCode }
+
+        if (initialSourcePosition != -1) {
+            spinnerSourceLang.setSelection(initialSourcePosition)
+        }
+        if(initialTargetPosition != -1) {
+            spinnerTargetLang.setSelection(initialTargetPosition)
+        }
         SpinnerUtils.setOnItemSelectedListener(spinnerSourceLang) { position ->
             val selectedLanguage = languageArrayList[position]
-            translationViewModel.setSourceLanguage(selectedLanguage.languageCode)
-            sourceLangCode = selectedLanguage.languageCode
+
+            if (!isInitializedSource) {
+                isInitializedSource = true
+                translationViewModel.setSourceLanguage(selectedLanguage.languageCode)
+                sourceLangCode = selectedLanguage.languageCode
+            } else if (initialSourcePosition != position) {
+                dataStorePreferenceManager.sourceLang = selectedLanguage.languageCode
+                translationViewModel.setSourceLanguage(selectedLanguage.languageCode)
+                sourceLangCode = selectedLanguage.languageCode
+            }
         }
 
         SpinnerUtils.setOnItemSelectedListener(spinnerTargetLang) { position ->
             val selectedLanguage = languageArrayList[position]
-            translationViewModel.setTargetLanguage(selectedLanguage.languageCode)
-            targetLangCode = selectedLanguage.languageCode
-            if (sourceLang.text!!.isNotEmpty()) {
-                validateData()
+
+            if (!isInitializedTarget) {
+                isInitializedTarget = true
+                translationViewModel.setTargetLanguage(selectedLanguage.languageCode)
+                targetLangCode = selectedLanguage.languageCode
+                if (sourceLang.text!!.isNotEmpty()) {
+                    validateData()
+                }
+            } else if (initialTargetPosition != position) {
+                dataStorePreferenceManager.targetLang = selectedLanguage.languageCode
+                translationViewModel.setTargetLanguage(selectedLanguage.languageCode)
+                targetLangCode = selectedLanguage.languageCode
+                if (sourceLang.text!!.isNotEmpty()) {
+                    validateData()
+                }
             }
         }
 
