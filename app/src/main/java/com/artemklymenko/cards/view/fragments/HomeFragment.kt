@@ -24,21 +24,25 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val dataStorePreferenceManager = DataStorePreferenceManager.getInstance(container!!.context)
-        binding.apply {
-            btnAddWord.setOnClickListener {
-                startActivity(Intent(context, AddWordsActivity::class.java))
-            }
-            btnStartLearning.setOnClickListener {
-                startActivity(Intent(context, CardsActivity::class.java))
-            }
-            lifecycleScope.launch {
-                dataStorePreferenceManager.consecutiveDaysFlow.collect { consecutiveDays ->
-                    tvDays.text = consecutiveDays.toString()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+            val dataStorePreferenceManager = DataStorePreferenceManager.getInstance(requireContext())
+            binding.apply {
+                btnAddWord.setOnClickListener {
+                    startActivity(Intent(context, AddWordsActivity::class.java))
+                }
+                btnStartLearning.setOnClickListener {
+                    startActivity(Intent(context, CardsActivity::class.java))
+                }
+                lifecycleScope.launch {
+                    dataStorePreferenceManager.consecutiveDaysFlow.collect { consecutiveDays ->
+                        tvDays.text = consecutiveDays.toString()
+                    }
                 }
             }
-        }
-        return binding.root
     }
     companion object {
         @JvmStatic

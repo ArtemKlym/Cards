@@ -28,26 +28,26 @@ class SignInFragment : Fragment() {
     private lateinit var viewModel: LoginViewModel
     private var loginFlow: StateFlow<Resource<FirebaseUser>?>? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
-        loginFlow = viewModel.loginFlow
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val dataStorePreferenceManager = DataStorePreferenceManager.getInstance(container!!.context)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val dataStorePreferenceManager = DataStorePreferenceManager.getInstance(requireContext())
+        viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+        loginFlow = viewModel.loginFlow
         binding.switchNotification.isChecked = dataStorePreferenceManager.notice
 
         binding.switchNotification.setOnCheckedChangeListener { _, isChecked ->
             setupNotificationsSwitch(
                 dataStorePreferenceManager,
                 isChecked,
-                container.context
+                requireContext()
             )
         }
 
@@ -58,7 +58,6 @@ class SignInFragment : Fragment() {
         binding.btnRegistration.setOnClickListener {
             loginFirebase()
         }
-        return binding.root
     }
 
     private fun loginFirebase() {

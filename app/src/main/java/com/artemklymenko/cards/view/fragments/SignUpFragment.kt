@@ -26,17 +26,18 @@ class SignUpFragment : Fragment() {
     private lateinit var viewModel: LoginViewModel
     private var signupFlow: StateFlow<Resource<FirebaseUser>?>? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
-        signupFlow = viewModel.signupFlow
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+        signupFlow = viewModel.signupFlow
 
         binding.btnSignIn.setOnClickListener {
             switchBackToSignInFragment()
@@ -52,7 +53,6 @@ class SignUpFragment : Fragment() {
                 }
             }
         }
-        return binding.root
     }
 
     private fun signUpFirebase() {
