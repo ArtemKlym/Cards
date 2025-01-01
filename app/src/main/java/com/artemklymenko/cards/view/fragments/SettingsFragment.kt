@@ -25,14 +25,19 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        val dataStorePreferenceManager = DataStorePreferenceManager.getInstance(container!!.context)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val dataStorePreferenceManager = DataStorePreferenceManager.getInstance(requireContext())
         binding.switchNotification.isChecked = dataStorePreferenceManager.notice
 
         if (viewModel.currentUser?.email != null) {
             binding.tvUserEmail.text = viewModel.currentUser!!.email
         } else {
             binding.tvUserEmail.text = getString(R.string.user)
-            }
+        }
 
         binding.ivLogOut.setOnClickListener {
             viewModel.logout()
@@ -43,11 +48,9 @@ class SettingsFragment : Fragment() {
             setupNotificationsSwitch(
                 dataStorePreferenceManager,
                 isChecked,
-                container.context
+                requireContext()
             )
         }
-
-        return binding.root
     }
 
     private fun switchToSignInFragment() {
