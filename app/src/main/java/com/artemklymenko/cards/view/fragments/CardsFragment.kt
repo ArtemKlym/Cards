@@ -34,7 +34,11 @@ class CardsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCardsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         checkItems()
 
         binding.searchViewWords.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
@@ -48,8 +52,6 @@ class CardsFragment : Fragment() {
                 return true
             }
         })
-
-        return binding.root
     }
 
     private fun filterList(text: String?) {
