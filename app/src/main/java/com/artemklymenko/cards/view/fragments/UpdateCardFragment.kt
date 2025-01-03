@@ -1,12 +1,15 @@
-package com.artemklymenko.cards.view.activities
+package com.artemklymenko.cards.view.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.artemklymenko.cards.R
-import com.artemklymenko.cards.databinding.ActivityUpdateWordsBinding
+import com.artemklymenko.cards.databinding.FragmentUpdateCardBinding
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.firestore.model.Response
 import com.artemklymenko.cards.utils.Network
@@ -18,11 +21,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
-class UpdateWordsActivity : AppCompatActivity() {
+class UpdateCardFragment : Fragment() {
 
-    private lateinit var binding: ActivityUpdateWordsBinding
+    private var _binding: FragmentUpdateCardBinding? = null
+    private val binding get() = _binding!!
 
     private val wordsViewModel: WordsViewModel by viewModels()
     private val firestoreViewModel: FirestoreViewModel by viewModels()
@@ -34,22 +37,21 @@ class UpdateWordsActivity : AppCompatActivity() {
     private var target: String? = null
     private var logIn = false
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         logIn = loginViewModel.currentUser != null
+        _binding = FragmentUpdateCardBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityUpdateWordsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        intent.extras?.let {
-            wordsId = it.getInt("wordsId")
-            sid = it.getString("sid")
-            source = it.getString("sourceCode")
-            target = it.getString("targetCode")
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        wordsId = requireArguments().getInt("wordsId")
+        sid = arguments?.getString("sid")
+        source = arguments?.getString("sourceCode")
+        target = arguments?.getString("targetCode")
 
         binding.apply {
             showSelectedCard(wordsId)
@@ -61,19 +63,19 @@ class UpdateWordsActivity : AppCompatActivity() {
                     sourceLangCode = source!!,
                     targetLangCode = target!!
                 )
-                if (logIn && Network.isConnected(this@UpdateWordsActivity)) {
+                if (logIn && Network.isConnected(requireContext())) {
                     firestoreViewModel.updateCardFromFirestore(
                         loginViewModel.currentUser!!.uid,
                         sid,
                         card
                     )
-                    firestoreViewModel.updateResultCard.observe(this@UpdateWordsActivity) { response ->
+                    firestoreViewModel.updateResultCard.observe(viewLifecycleOwner) { response ->
                         if (response is Response.Success) {
                             val result = wordsViewModel.updateWords(card.copy(sid = response.data))
                             checkResult(
                                 result,
-                                this@UpdateWordsActivity.getString(R.string.updated),
-                                this@UpdateWordsActivity
+                                requireContext().getString(R.string.updated),
+                                requireContext()
                             )
                         }
                     }
@@ -81,8 +83,8 @@ class UpdateWordsActivity : AppCompatActivity() {
                     val result = wordsViewModel.updateWords(card)
                     checkResult(
                         result,
-                        this@UpdateWordsActivity.getString(R.string.updated),
-                        this@UpdateWordsActivity
+                        requireContext().getString(R.string.updated),
+                        requireContext()
                     )
                 }
             }
@@ -92,22 +94,22 @@ class UpdateWordsActivity : AppCompatActivity() {
                     wordsId, etUpdateOrigin.text.toString(),
                     etUpdateTranslated.text.toString()
                 )
-                if (logIn && Network.isConnected(this@UpdateWordsActivity)) {
+                if (logIn && Network.isConnected(requireContext())) {
                     firestoreViewModel.deleteCardFromFirestore(
                         loginViewModel.currentUser!!.uid,
                         sid
                     )
-                    firestoreViewModel.deleteCardResult.observe(this@UpdateWordsActivity) { response ->
+                    firestoreViewModel.deleteCardResult.observe(viewLifecycleOwner) { response ->
                         if (response is Response.Success) {
                             val result = wordsViewModel.deleteWords(card)
                             checkResult(
                                 result,
-                                this@UpdateWordsActivity.getString(R.string.deleted),
-                                this@UpdateWordsActivity
+                                requireContext().getString(R.string.deleted),
+                                requireContext()
                             )
                         } else {
                             Toast.makeText(
-                                this@UpdateWordsActivity,
+                                requireContext(),
                                 response.toString(),
                                 Toast.LENGTH_SHORT
                             ).show()
@@ -117,19 +119,23 @@ class UpdateWordsActivity : AppCompatActivity() {
                     val result = wordsViewModel.deleteWords(card)
                     checkResult(
                         result,
-                        this@UpdateWordsActivity.getString(R.string.deleted),
-                        this@UpdateWordsActivity
+                        requireContext().getString(R.string.deleted),
+                        requireContext()
                     )
                 }
             }
         }
     }
 
+    companion object{
+        @JvmStatic
+        fun newInstance() = UpdateCardFragment()
+    }
+
     private fun checkResult(result: Response<Boolean>, action: String, context: Context) {
         if (result is Response.Success) {
             val message = context.getString(R.string.card_has_been) + " $action"
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-            finish()
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         } else {
             binding.apply {
                 etUpdateOrigin.error = context.getString(R.string.incorrect_field)
@@ -141,10 +147,15 @@ class UpdateWordsActivity : AppCompatActivity() {
     private fun showSelectedCard(wordsId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             val words = wordsViewModel.getWords(wordsId)
-            runOnUiThread {
+            CoroutineScope(Dispatchers.Main).launch {
                 binding.etUpdateOrigin.setText(words.origin)
                 binding.etUpdateTranslated.setText(words.translated)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
