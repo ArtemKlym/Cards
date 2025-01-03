@@ -1,7 +1,6 @@
 package com.artemklymenko.cards.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,10 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.artemklymenko.cards.databinding.ItemWordsBinding
 import com.artemklymenko.cards.db.Words
-import com.artemklymenko.cards.view.activities.UpdateWordsActivity
-import javax.inject.Inject
 
-class WordsAdapter @Inject constructor():
+class WordsAdapter (
+    private val onItemClick: (Words) -> Unit
+):
     RecyclerView.Adapter<WordsAdapter.ViewHolder>() {
 
         private lateinit var binding: ItemWordsBinding
@@ -32,17 +31,12 @@ class WordsAdapter @Inject constructor():
     }
 
     inner class ViewHolder: RecyclerView.ViewHolder(binding.root){
-        fun bind(words: Words){
+        fun bind(word: Words){
             binding.apply {
-                tvOrigin.text = words.origin
-                tvTranslated.text = words.translated
-                root.setOnClickListener {
-                    val intent = Intent(context, UpdateWordsActivity::class.java)
-                    intent.putExtra("wordsId", words.wordsId)
-                    intent.putExtra("sid", words.sid)
-                    intent.putExtra("sourceCode", words.sourceLangCode)
-                    intent.putExtra("targetCode", words.targetLangCode)
-                    context.startActivity(intent)
+                tvOrigin.text = word.origin
+                tvTranslated.text = word.translated
+                itemView.setOnClickListener {
+                    onItemClick(word)
                 }
             }
         }
