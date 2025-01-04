@@ -21,6 +21,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+private const val ARG_PARAM_ID = "wordsId"
+private const val ARG_PARAM_SID = "sid"
+private const val ARG_PARAM_SOURCE = "sourceCode"
+private const val ARG_PARAM_TARGET = "targetCode"
+
 @AndroidEntryPoint
 class UpdateCardFragment : Fragment() {
 
@@ -37,10 +42,20 @@ class UpdateCardFragment : Fragment() {
     private var target: String? = null
     private var logIn = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            wordsId = it.getInt(ARG_PARAM_ID)
+            sid = it.getString(ARG_PARAM_SID)
+            source = it.getString(ARG_PARAM_SOURCE)
+            target = it.getString(ARG_PARAM_TARGET)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         logIn = loginViewModel.currentUser != null
         _binding = FragmentUpdateCardBinding.inflate(inflater, container, false)
         return binding.root
@@ -48,11 +63,6 @@ class UpdateCardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        wordsId = requireArguments().getInt("wordsId")
-        sid = arguments?.getString("sid")
-        source = arguments?.getString("sourceCode")
-        target = arguments?.getString("targetCode")
-
         binding.apply {
             showSelectedCard(wordsId)
 
@@ -147,7 +157,7 @@ class UpdateCardFragment : Fragment() {
     private fun showSelectedCard(wordsId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             val words = wordsViewModel.getWords(wordsId)
-            CoroutineScope(Dispatchers.Main).launch {
+            requireActivity().runOnUiThread {
                 binding.etUpdateOrigin.setText(words.origin)
                 binding.etUpdateTranslated.setText(words.translated)
             }
