@@ -1,11 +1,13 @@
-package com.artemklymenko.cards.view.activities
+package com.artemklymenko.cards.view.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.artemklymenko.cards.adapters.SwipeAdapter
-import com.artemklymenko.cards.databinding.ActivityCardsBinding
+import com.artemklymenko.cards.databinding.FragmentKolodaCardsBinding
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.vm.WordsViewModel
 import com.yalantis.library.Koloda
@@ -16,9 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CardsActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityCardsBinding
+class KolodaCardsFragment : Fragment() {
+    private var _binding: FragmentKolodaCardsBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var swipeAdapter: SwipeAdapter
 
@@ -28,15 +30,16 @@ class CardsActivity : AppCompatActivity() {
 
     private lateinit var koloda: Koloda
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCardsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        initViews()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentKolodaCardsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun initViews() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         koloda = binding.koloda
 
         getList()
@@ -47,18 +50,23 @@ class CardsActivity : AppCompatActivity() {
                 val repeatWord = arrayList[position + 1]
                 swipeAdapter.addSwiped(repeatWord)
                 arrayList.add(repeatWord)
-                changeHintVisibilityInvisible()
+                binding.groupRepeatKnow.visibility = View.INVISIBLE
             }
 
             override fun onCardSwipedRight(position: Int) {
                 updateProgressBar()
-                changeHintVisibilityInvisible()
+                binding.groupRepeatKnow.visibility = View.INVISIBLE
             }
 
             override fun onCardDrag(position: Int, cardView: View, progress: Float) {
-                changeHintVisibilityVisible()
+                binding.groupRepeatKnow.visibility = View.VISIBLE
             }
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() {}
     }
 
     private fun initializeProgressBar(listSize: Int) {
@@ -68,7 +76,7 @@ class CardsActivity : AppCompatActivity() {
     private fun getList() {
         CoroutineScope(Dispatchers.IO).launch {
             val list = viewModel.getAllWords()
-            runOnUiThread {
+            requireActivity().runOnUiThread {
                 initializeProgressBar(list.size)
                 setupAdapter(list)
                 arrayList = list as ArrayList<Words>
@@ -85,21 +93,8 @@ class CardsActivity : AppCompatActivity() {
         binding.progressBar.progress += 1
     }
 
-    private fun changeHintVisibilityVisible() {
-        binding.apply {
-                tvRepeat.visibility = View.VISIBLE
-                tvKnow.visibility = View.VISIBLE
-                ivHintLeft.visibility = View.VISIBLE
-                ivHintRight.visibility = View.VISIBLE
-        }
-    }
-
-    private fun changeHintVisibilityInvisible(){
-        binding.apply {
-            tvRepeat.visibility = View.INVISIBLE
-            tvKnow.visibility = View.INVISIBLE
-            ivHintLeft.visibility = View.INVISIBLE
-            ivHintRight.visibility = View.INVISIBLE
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
