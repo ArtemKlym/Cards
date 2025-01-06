@@ -1,15 +1,18 @@
-package com.artemklymenko.cards.view.activities
+package com.artemklymenko.cards.view.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.artemklymenko.cards.R
-import com.artemklymenko.cards.databinding.ActivityAddWordsBinding
+import com.artemklymenko.cards.databinding.FragmentAddWordsBinding
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.di.ModelLanguage
 import com.artemklymenko.cards.firestore.model.Response
@@ -27,9 +30,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
 @AndroidEntryPoint
-class AddWordsActivity : AppCompatActivity() {
+class AddWordsFragment : Fragment() {
 
-    private lateinit var binding: ActivityAddWordsBinding
+    companion object {
+        const val TAG = "AddWordsTag"
+        @JvmStatic
+        fun newInstance() {}
+    }
+
+    private var _binding: FragmentAddWordsBinding? = null
+    private val binding get() = _binding!!
     private lateinit var sourceLang: TextInputEditText
     private lateinit var targetLang: TextInputEditText
     private lateinit var spinnerSourceLang: Spinner
@@ -49,16 +59,18 @@ class AddWordsActivity : AppCompatActivity() {
 
     private lateinit var dataStorePreferenceManager: DataStorePreferenceManager
 
-    companion object {
-        private const val TAG = "AddWordsTag"
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAddWordsBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityAddWordsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        dataStorePreferenceManager = DataStorePreferenceManager.getInstance(this)
+        dataStorePreferenceManager = DataStorePreferenceManager.getInstance(requireContext())
 
         logIn = loginViewModel.currentUser != null
 
@@ -66,6 +78,24 @@ class AddWordsActivity : AppCompatActivity() {
         setupViews()
         setupSpinners()
         setListeners()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        with(dataStorePreferenceManager) {
+            if(sourceLang != sourceLangCode) {
+                sourceLang = sourceLangCode
+            }
+            if(targetLang != targetLangCode) {
+                targetLang = targetLangCode
+            }
+        }
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupViews() {
@@ -78,7 +108,7 @@ class AddWordsActivity : AppCompatActivity() {
 
     private fun setupSpinners() {
         val languageAdapter = ArrayAdapter(
-            this,
+            requireContext(),
             android.R.layout.simple_spinner_item,
             languageArrayList.map { it.languageTitle })
         spinnerSourceLang.adapter = languageAdapter
@@ -127,9 +157,9 @@ class AddWordsActivity : AppCompatActivity() {
                     0, sourceLang.text!!.toString(),
                     targetLang.text!!.toString(), sourceLangCode, targetLangCode
                 )
-                if (logIn && Network.isConnected(this)) {
+                if (logIn && Network.isConnected(requireContext())) {
                     firestoreViewModel.addCardToFirestore(loginViewModel.currentUser!!.uid, words)
-                    firestoreViewModel.addCardResult.observe(this@AddWordsActivity) { response ->
+                    firestoreViewModel.addCardResult.observe(viewLifecycleOwner) { response ->
                         if (response is Response.Success) {
                             val result = wordsViewModel.insertWords(words.copy(sid = response.data))
                             checkResult(result)
@@ -155,12 +185,12 @@ class AddWordsActivity : AppCompatActivity() {
                 tilOrigin.error = null
             }
             Toast.makeText(
-                this,
+                requireContext(),
                 "${getString(R.string.card_has_been)} ${getString(R.string.added)}",
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            Toast.makeText(this, getString(R.string.failed_to_add_a_card), Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), getString(R.string.failed_to_add_a_card), Toast.LENGTH_SHORT)
                 .show()
         }
     }
@@ -191,7 +221,7 @@ class AddWordsActivity : AppCompatActivity() {
             binding.tvModel.text = null
             Log.e(TAG, "startTranslation: ${e.printStackTrace()}")
             Toast.makeText(
-                this,
+                requireContext(),
                 getString(R.string.failed_to_perform_automatic_translation),
                 Toast.LENGTH_SHORT
             ).show()
@@ -203,18 +233,6 @@ class AddWordsActivity : AppCompatActivity() {
         languageArrayList = languageCodeList.map { languageCode ->
             val languageTitle = Locale(languageCode).displayLanguage
             ModelLanguage(languageCode, languageTitle)
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        with(dataStorePreferenceManager) {
-            if(sourceLang != sourceLangCode) {
-                sourceLang = sourceLangCode
-            }
-            if(targetLang != targetLangCode) {
-                targetLang = targetLangCode
-            }
         }
     }
 }

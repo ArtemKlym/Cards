@@ -1,7 +1,6 @@
 package com.artemklymenko.cards.view.fragments
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.artemklymenko.cards.R
 import com.artemklymenko.cards.databinding.FragmentHomeBinding
-import com.artemklymenko.cards.view.activities.AddWordsActivity
 import com.artemklymenko.cards.vm.DataStorePreferenceManager
 import kotlinx.coroutines.launch
 
@@ -32,7 +30,11 @@ class HomeFragment : Fragment() {
             val dataStorePreferenceManager = DataStorePreferenceManager.getInstance(requireContext())
             binding.apply {
                 btnAddWord.setOnClickListener {
-                    startActivity(Intent(context, AddWordsActivity::class.java))
+                   val addWordsFragment = AddWordsFragment()
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, addWordsFragment)
+                        .commit()
                 }
                 btnStartLearning.setOnClickListener {
                     val kolodaCardsFragment = KolodaCardsFragment()
