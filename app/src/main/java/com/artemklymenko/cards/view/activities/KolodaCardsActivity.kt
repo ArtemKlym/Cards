@@ -1,13 +1,14 @@
-package com.artemklymenko.cards.view.fragments
+package com.artemklymenko.cards.view.activities
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.artemklymenko.cards.adapters.SwipeAdapter
-import com.artemklymenko.cards.databinding.FragmentKolodaCardsBinding
+import com.artemklymenko.cards.databinding.ActivityKolodaCardsBinding
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.vm.WordsViewModel
 import com.yalantis.library.Koloda
@@ -18,9 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class KolodaCardsFragment : Fragment() {
-    private var _binding: FragmentKolodaCardsBinding? = null
-    private val binding get() = _binding!!
+class KolodaCardsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityKolodaCardsBinding
 
     private lateinit var swipeAdapter: SwipeAdapter
 
@@ -30,16 +31,17 @@ class KolodaCardsFragment : Fragment() {
 
     private lateinit var koloda: Koloda
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentKolodaCardsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        binding = ActivityKolodaCardsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         koloda = binding.koloda
 
         getList()
@@ -64,11 +66,6 @@ class KolodaCardsFragment : Fragment() {
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() {}
-    }
-
     private fun initializeProgressBar(listSize: Int) {
         binding.progressBar.max = listSize
     }
@@ -76,7 +73,7 @@ class KolodaCardsFragment : Fragment() {
     private fun getList() {
         CoroutineScope(Dispatchers.IO).launch {
             val list = viewModel.getAllWords()
-            requireActivity().runOnUiThread {
+            runOnUiThread {
                 initializeProgressBar(list.size)
                 setupAdapter(list)
                 arrayList = list as ArrayList<Words>
@@ -91,10 +88,5 @@ class KolodaCardsFragment : Fragment() {
 
     private fun updateProgressBar() {
         binding.progressBar.progress += 1
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
