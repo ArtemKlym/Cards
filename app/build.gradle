@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.google.mlkit:language-id-common:16.1.0'
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
+    implementation 'androidx.activity:activity:1.8.0'
 
     //Room
     def room_version = "2.5.2"
