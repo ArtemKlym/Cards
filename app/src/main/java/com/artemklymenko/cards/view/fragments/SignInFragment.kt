@@ -58,6 +58,13 @@ class SignInFragment : Fragment() {
         binding.btnRegistration.setOnClickListener {
             loginFirebase()
         }
+
+        binding.btnDonate.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, DonationFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun loginFirebase() {

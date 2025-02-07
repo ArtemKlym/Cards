@@ -71,4 +71,14 @@
     <string name="card_has_been">Card has been</string>
     <string name="failed_to_synchronize_data">failed to synchronize data</string>
     <string name="failed_to_perform_automatic_translation">Failed to perform automatic translation</string>
+    <string name="your_amount">Your amount: $%s</string>
+    <string name="donate">Donate</string>
+    <string name="donate_now">Donate Now</string>
+    <string name="one_dollar">$1</string>
+    <string name="five_dollars">$5</string>
+    <string name="ten_dollars">$10</string>
+    <string name="twenty_dollars">$20</string>
+    <string name="or">or</string>
+    <string name="tape_your_amount">Tape your amount</string>
+    <string name="btn_continue">Continue</string>
 </resources>
