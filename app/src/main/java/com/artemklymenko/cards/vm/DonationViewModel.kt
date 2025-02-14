@@ -27,11 +27,11 @@ class DonationViewModel @Inject constructor(
     /**
      * Creates a Task that starts the payment process with the transaction details included.
      *
-     * @param priceLabel the price to show on the payment sheet.
+     * @param amount the price to show on the payment sheet.
      * @return a Task with the payment information.
      */
-    fun getLoadPaymentDataTask(priceLabel: String?): Task<PaymentData> {
-        val paymentDataRequestJson = getPaymentDataRequest(priceLabel!!)
+    fun getLoadPaymentDataTask(amount: String): Task<PaymentData> {
+        val paymentDataRequestJson = getPaymentDataRequest(amount)
 
         val request =
             PaymentDataRequest.fromJson(paymentDataRequestJson.toString())

@@ -49,8 +49,8 @@ class DonationFragment : Fragment() {
                 val amount = if (selectedRadioButton != -1) {
                     val selectedButton = root.findViewById<RadioButton>(selectedRadioButton)
                     selectedButton.text.toString().replace("$", "")
-                } else if (!customAmount.text.isNullOrEmpty()) {
-                    customAmount.text.toString()
+                } else if (!customAmount.text.isNullOrEmpty() && (customAmount.text.toString().toInt() > 0)) {
+                   customAmount.text.toString().toInt().toString()
                 } else {
                     Toast.makeText(requireContext(), "Please select or enter an amount", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener

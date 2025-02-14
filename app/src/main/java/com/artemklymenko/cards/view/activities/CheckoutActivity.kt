@@ -70,7 +70,7 @@ class CheckoutActivity : AppCompatActivity() {
     }
 
 
-    private fun setGooglePayAvailable(available: Boolean) {
+    fun setGooglePayAvailable(available: Boolean) {
         if (available) {
             googlePayButton.visibility = View.VISIBLE
         } else {
@@ -87,7 +87,7 @@ class CheckoutActivity : AppCompatActivity() {
      * PaymentData response object contains the payment information, as well as any additional
      * requested information, such as billing and shipping address.
      */
-    private fun handlePaymentSuccess(paymentData: PaymentData) {
+    fun handlePaymentSuccess(paymentData: PaymentData) {
         val paymentInfo = paymentData.toJson()
 
         try {

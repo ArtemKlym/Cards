@@ -36,6 +36,10 @@ android {
     buildFeatures{
         viewBinding true
     }
+    packagingOptions {
+        resources.excludes.add("META-INF/LICENSE.md")
+        resources.excludes.add("META-INF/LICENSE-notice.md")
+    }
 }
 
 dependencies {
@@ -47,6 +51,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
     implementation 'androidx.activity:activity:1.8.0'
+    implementation 'androidx.test.uiautomator:uiautomator:2.3.0'
 
     //Room
     def room_version = "2.5.2"
@@ -65,8 +70,10 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
     //Hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:2.51.1"
+    kapt "com.google.dagger:hilt-compiler:2.51.1"
+
+    androidTestImplementation "io.mockk:mockk-android:1.13.16"
 
     //Translation
     implementation 'com.google.mlkit:translate:17.0.2'
@@ -94,6 +101,7 @@ dependencies {
     testImplementation "com.google.truth:truth:1.1"
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
 }
 
 kapt {
