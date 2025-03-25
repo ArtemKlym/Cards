@@ -10,6 +10,8 @@ data class Words(
     val wordsId: Int = 0,
     val origin: String = "",
     val translated: String = "",
+    val exampleOfUse: String = "",
+    var priority: Int = 10,
     val sourceLangCode: String ="",
     val targetLangCode: String = "",
     var sid: String? = null,

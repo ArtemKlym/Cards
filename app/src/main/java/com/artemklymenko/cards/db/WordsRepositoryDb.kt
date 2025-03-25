@@ -15,6 +15,8 @@ class WordsRepositoryDb @Inject constructor(
 
     suspend fun getAllWords() = dao.getAllWords()
 
+    suspend fun getWordsByPriority() = dao.getWordsByPriority()
+
     suspend fun getWords(wordsId: Int) = dao.getWords(wordsId)
 
     suspend fun getUnsyncedWords() = dao.getUnsyncedWords()
