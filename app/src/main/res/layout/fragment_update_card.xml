@@ -50,6 +50,28 @@
             android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUpdateExampleOfUse"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="@+id/tilUpdateTranslated"
+            app:layout_constraintStart_toStartOf="@+id/tilUpdateTranslated"
+            app:layout_constraintTop_toBottomOf="@+id/tilUpdateTranslated">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUpdateExample"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/example_of_use"
+                android:inputType="text"
+                android:maxLength="37"
+                android:textColorHint="#546E7A" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="0dp"
@@ -57,9 +79,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/update"
-        app:layout_constraintEnd_toEndOf="@+id/tilUpdateTranslated"
+        app:layout_constraintEnd_toEndOf="@+id/tilUpdateExampleOfUse"
         app:layout_constraintStart_toEndOf="@+id/btnDelete"
-        app:layout_constraintTop_toBottomOf="@+id/tilUpdateTranslated" />
+        app:layout_constraintTop_toBottomOf="@+id/tilUpdateExampleOfUse" />
 
     <Button
         android:id="@+id/btnDelete"
@@ -70,7 +92,7 @@
         android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="@+id/btnUpdate"
         app:layout_constraintEnd_toStartOf="@+id/btnUpdate"
-        app:layout_constraintStart_toStartOf="@+id/tilUpdateTranslated"
+        app:layout_constraintStart_toStartOf="@+id/tilUpdateExampleOfUse"
         app:layout_constraintTop_toTopOf="@+id/btnUpdate"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
