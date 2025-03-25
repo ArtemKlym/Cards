@@ -60,4 +60,10 @@ class WordsViewModel @Inject constructor(
             return@withContext repositoryDb.getWords(id)
         }
     }
+
+    suspend fun getWordsByPriority(): List<Words>{
+        return withContext(Dispatchers.IO){
+            return@withContext repositoryDb.getWordsByPriority()
+        }
+    }
 }

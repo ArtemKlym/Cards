@@ -1,48 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
-    android:layout_height="400dp"
-    android:layout_gravity="center"
-    card_view:cardCornerRadius="8dp"
-    card_view:strokeColor="#B796E8"
-    card_view:strokeWidth="2dp">
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="8dp"
+        card_view:strokeColor="#B796E8"
+        card_view:strokeWidth="2dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
         <com.wajahatkarim3.easyflipview.EasyFlipView
-            android:id="@+id/easyFlipView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                android:id="@+id/easyFlipView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:id="@+id/backSideContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/tvCardTranslated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/translated"
+                        android:textSize="24sp" />
+
+                <TextView
+                        android:id="@+id/tvExampleOfUse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/example_of_use"
+                        android:textSize="18sp"
+                        android:layout_marginTop="20dp"/>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tvCardTranslated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/translated"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/tvCardOriginal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/translated"
-                android:textSize="24sp" />
+                    android:id="@+id/tvCardOriginal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/translated"
+                    android:textSize="24sp" />
         </com.wajahatkarim3.easyflipview.EasyFlipView>
 
         <ImageButton
-            android:id="@+id/ibListen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:contentDescription="@string/convert_text_to_speech"
-            android:minHeight="48dp"
-            card_view:srcCompat="@drawable/listen" />
+                android:id="@+id/ibListen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:contentDescription="@string/convert_text_to_speech"
+                android:minHeight="48dp"
+                card_view:srcCompat="@drawable/listen" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

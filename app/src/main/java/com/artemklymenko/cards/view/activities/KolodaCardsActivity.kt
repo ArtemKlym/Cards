@@ -50,18 +50,27 @@ class KolodaCardsActivity : AppCompatActivity() {
 
             override fun onCardSwipedLeft(position: Int) {
                 val repeatWord = arrayList[position + 1]
+                repeatWord.priority += 2
                 swipeAdapter.addSwiped(repeatWord)
                 arrayList.add(repeatWord)
+                viewModel.updateWords(repeatWord)
                 binding.groupRepeatKnow.visibility = View.INVISIBLE
             }
 
             override fun onCardSwipedRight(position: Int) {
+                val word = arrayList[position+1]
+                word.priority -= 1
+                viewModel.updateWords(word)
                 updateProgressBar()
                 binding.groupRepeatKnow.visibility = View.INVISIBLE
             }
 
             override fun onCardDrag(position: Int, cardView: View, progress: Float) {
                 binding.groupRepeatKnow.visibility = View.VISIBLE
+            }
+
+            override fun onEmptyDeck() {
+
             }
         }
     }
@@ -72,11 +81,16 @@ class KolodaCardsActivity : AppCompatActivity() {
 
     private fun getList() {
         CoroutineScope(Dispatchers.IO).launch {
-            val list = viewModel.getAllWords()
+            val list = viewModel.getWordsByPriority()
+
             runOnUiThread {
                 initializeProgressBar(list.size)
-                setupAdapter(list)
-                arrayList = list as ArrayList<Words>
+                arrayList = ArrayList(list)
+                if (list.size < 10) {
+                    setupAdapter(arrayList)
+                } else {
+                    setupAdapter(arrayList.take(10))
+                }
             }
         }
     }

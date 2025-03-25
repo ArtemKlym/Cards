@@ -42,6 +42,7 @@ class AddWordsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var sourceLang: TextInputEditText
     private lateinit var targetLang: TextInputEditText
+    private lateinit var etExampleOfUse: TextInputEditText
     private lateinit var spinnerSourceLang: Spinner
     private lateinit var spinnerTargetLang: Spinner
     private lateinit var translateBtn: Button
@@ -99,11 +100,14 @@ class AddWordsFragment : Fragment() {
     }
 
     private fun setupViews() {
-        sourceLang = binding.etOrigin
-        targetLang = binding.etTranslated
-        spinnerSourceLang = binding.spOrigin
-        spinnerTargetLang = binding.spTranslated
-        translateBtn = binding.btnAdd
+        binding.apply {
+            sourceLang = etOrigin
+            targetLang = etTranslated
+            spinnerSourceLang = spOrigin
+            spinnerTargetLang = spTranslated
+            translateBtn = btnAdd
+            etExampleOfUse = etExample
+        }
     }
 
     private fun setupSpinners() {
@@ -154,8 +158,12 @@ class AddWordsFragment : Fragment() {
         translateBtn.setOnClickListener {
             if (checkFields()) {
                 val words = Words(
-                    0, sourceLang.text!!.toString(),
-                    targetLang.text!!.toString(), sourceLangCode, targetLangCode
+                    wordsId = 0,
+                    origin = sourceLang.text.toString(),
+                    translated = targetLang.text.toString(),
+                    exampleOfUse = etExampleOfUse.text.toString(),
+                    sourceLangCode =  sourceLangCode,
+                    targetLangCode =  targetLangCode
                 )
                 if (logIn && Network.isConnected(requireContext())) {
                     firestoreViewModel.addCardToFirestore(loginViewModel.currentUser!!.uid, words)

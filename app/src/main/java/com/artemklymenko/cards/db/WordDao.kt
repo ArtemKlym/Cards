@@ -23,6 +23,9 @@ interface WordDao {
     @Query("SELECT * FROM $TABLE_NAME ORDER BY wordsId ASC")
     suspend fun getAllWords(): List<Words>
 
+    @Query("SELECT * FROM $TABLE_NAME ORDER BY priority DESC")
+    suspend fun getWordsByPriority(): List<Words>
+
     @Query("SELECT * FROM $TABLE_NAME WHERE wordsId like :id")
     suspend fun getWords(id: Int): Words
 

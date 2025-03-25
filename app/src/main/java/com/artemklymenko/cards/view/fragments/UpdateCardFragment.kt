@@ -68,8 +68,10 @@ class UpdateCardFragment : Fragment() {
 
             btnUpdate.setOnClickListener {
                 val card = Words(
-                    wordsId, etUpdateOrigin.text.toString(),
-                    etUpdateTranslated.text.toString(),
+                    wordsId = wordsId,
+                    origin = etUpdateOrigin.text.toString(),
+                    translated = etUpdateTranslated.text.toString(),
+                    exampleOfUse = etUpdateExample.text.toString(),
                     sourceLangCode = source!!,
                     targetLangCode = target!!
                 )
@@ -160,6 +162,7 @@ class UpdateCardFragment : Fragment() {
             requireActivity().runOnUiThread {
                 binding.etUpdateOrigin.setText(words.origin)
                 binding.etUpdateTranslated.setText(words.translated)
+                binding.etUpdateExample.setText(words.exampleOfUse)
             }
         }
     }
