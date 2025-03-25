@@ -27,6 +27,7 @@ class SwipeAdapter(
 
     private lateinit var frontText: TextView
     private lateinit var backText: TextView
+    private lateinit var exampleOfUse: TextView
     private lateinit var btnListen: ImageButton
     private lateinit var flipView: EasyFlipView
 
@@ -48,11 +49,15 @@ class SwipeAdapter(
 
         frontText.text = currentWord.origin
         backText.text = currentWord.translated
+        exampleOfUse.text = currentWord.exampleOfUse
 
         tts = TextToSpeech(parent!!.context,this)
 
+        speakOut(currentWord.origin, currentWord.sourceLangCode)
+
         flipView.setOnFlipListener { easyFlipView, _ ->
-            origin = easyFlipView.isFrontSide
+            val isFrontSide = easyFlipView.isFrontSide
+            origin = isFrontSide
         }
 
         btnListen.setOnClickListener {
@@ -81,6 +86,7 @@ class SwipeAdapter(
     private fun initView(initConvertView: View) {
         frontText = initConvertView.findViewById(R.id.tvCardOriginal)
         backText = initConvertView.findViewById(R.id.tvCardTranslated)
+        exampleOfUse = initConvertView.findViewById(R.id.tvExampleOfUse)
         btnListen = initConvertView.findViewById(R.id.ibListen)
         flipView = initConvertView.findViewById(R.id.easyFlipView)
     }
