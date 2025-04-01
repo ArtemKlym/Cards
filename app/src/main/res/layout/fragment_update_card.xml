@@ -68,7 +68,7 @@
                 android:layout_height="match_parent"
                 android:hint="@string/example_of_use"
                 android:inputType="text"
-                android:maxLength="37"
+                android:maxLength="50"
                 android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -81,5 +81,5 @@
     <string name="or">or</string>
     <string name="tape_your_amount">Tape your amount</string>
     <string name="btn_continue">Continue</string>
-    <string name="example_of_use">Example of use</string>
+    <string name="example_of_use">Example of use (optional)</string>
 </resources>
