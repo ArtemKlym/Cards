@@ -44,8 +44,10 @@ class CardsRepositoryImpl @Inject constructor(
                 "wordsId" to card.wordsId,
                 "origin" to card.origin,
                 "translated" to card.translated,
+                "exampleOfUse" to card.exampleOfUse,
                 "sourceLangCode" to card.sourceLangCode,
                 "targetLangCode" to card.targetLangCode,
+                "priority" to card.priority,
                 "sync" to card.sync
             )
 
@@ -111,8 +113,10 @@ class CardsRepositoryImpl @Inject constructor(
                 "cardId" to words.wordsId,
                 "origin" to words.origin,
                 "translated" to words.translated,
+                "exampleOfUse" to words.exampleOfUse,
                 "sourceLangCode" to words.sourceLangCode,
                 "targetLangCode" to words.targetLangCode,
+                "priority" to words.priority,
                 "sync" to words.sync,
                 "sid" to sid
             )
