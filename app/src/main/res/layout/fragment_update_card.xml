@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/origin"
-            android:inputType="text"
+            android:inputType="text|textAutoCorrect"
             android:maxLength="37"
             android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/translated"
-            android:inputType="text"
+            android:inputType="text|textAutoCorrect"
             android:maxLength="37"
             android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/example_of_use"
-                android:inputType="text"
+                android:inputType="text|textAutoCorrect"
                 android:maxLength="50"
                 android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
