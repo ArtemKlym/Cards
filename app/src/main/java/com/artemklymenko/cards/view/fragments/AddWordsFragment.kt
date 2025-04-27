@@ -189,6 +189,7 @@ class AddWordsFragment : Fragment() {
             binding.apply {
                 sourceLang.text!!.clear()
                 targetLang.text!!.clear()
+                etExample.text!!.clear()
                 translateBtn.isEnabled = false
                 tilOrigin.error = null
             }
