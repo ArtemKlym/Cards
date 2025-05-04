@@ -40,8 +40,8 @@
     <string name="notice_text">Давайте вивчимо кілька слів!</string>
     <string name="convert_text_to_speech">Convert text to speech</string>
     <string name="hint_where_to_swipe">Hint where to swipe</string>
-    <string name="notification_title">Hi! It\'s Cards</string>
-    <string name="notification_text">Let\'s learn words today!</string>
+    <string name="notification_title">Привіт, це Cards</string>
+    <string name="notification_text">Давай сьогодні вивчимо слова!</string>
     <string name="confirm_password">Підтвердити пароль</string>
     <string name="account_has_been_created">Обліковий запис створено</string>
     <string name="something_went_wrong">Щось пішло не так</string>

@@ -34,4 +34,7 @@ interface WordDao {
 
     @Query("UPDATE $TABLE_NAME SET sid = :newSid WHERE wordsId = :localId")
     suspend fun updateWordsSid(localId: Int, newSid: String)
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE :nowMillis - lastSeen >= :oneMonthMillis ORDER BY priority DESC")
+    suspend fun getOverdueWords(nowMillis: Long, oneMonthMillis: Long): List<Words>
 }

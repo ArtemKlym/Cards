@@ -66,4 +66,12 @@ class WordsViewModel @Inject constructor(
             return@withContext repositoryDb.getWordsByPriority()
         }
     }
+
+    suspend fun getOverdueWords(): List<Words> {
+        val now = System.currentTimeMillis()
+        val oneMonth = 30L * 24 * 60 * 60 * 1000
+        return withContext(Dispatchers.IO) {
+            repositoryDb.getOverdueWords(now, oneMonth)
+        }
+    }
 }

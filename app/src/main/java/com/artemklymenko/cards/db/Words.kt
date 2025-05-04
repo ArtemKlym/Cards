@@ -12,6 +12,7 @@ data class Words(
     val translated: String = "",
     val exampleOfUse: String = "",
     var priority: Int = 10,
+    var lastSeen: Long = 0L,
     val sourceLangCode: String ="",
     val targetLangCode: String = "",
     var sid: String? = null,
