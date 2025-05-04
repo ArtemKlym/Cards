@@ -20,4 +20,7 @@ class WordsRepositoryDb @Inject constructor(
     suspend fun getWords(wordsId: Int) = dao.getWords(wordsId)
 
     suspend fun getUnsyncedWords() = dao.getUnsyncedWords()
+
+    suspend fun getOverdueWords(nowMillis: Long, oneMonthMillis: Long) =
+        dao.getOverdueWords(nowMillis, oneMonthMillis)
 }
