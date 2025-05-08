@@ -51,6 +51,7 @@ class KolodaCardsActivity : AppCompatActivity() {
             override fun onCardSwipedLeft(position: Int) {
                 val repeatWord = arrayList[position + 1]
                 repeatWord.priority += 2
+                repeatWord.lastSeen = System.currentTimeMillis()
                 swipeAdapter.addSwiped(repeatWord)
                 arrayList.add(repeatWord)
                 viewModel.updateWords(repeatWord)
@@ -60,6 +61,7 @@ class KolodaCardsActivity : AppCompatActivity() {
             override fun onCardSwipedRight(position: Int) {
                 val word = arrayList[position+1]
                 word.priority -= 1
+                word.lastSeen = System.currentTimeMillis()
                 viewModel.updateWords(word)
                 updateProgressBar()
                 binding.groupRepeatKnow.visibility = View.INVISIBLE
@@ -81,12 +83,16 @@ class KolodaCardsActivity : AppCompatActivity() {
 
     private fun getList() {
         CoroutineScope(Dispatchers.IO).launch {
-            val list = viewModel.getWordsByPriority()
+            val priorityList = viewModel.getWordsByPriority()
+            val overdueList = viewModel.getOverdueWords()
+
+            val combinedList = (overdueList + priorityList)
+                .distinctBy { it.wordsId }
 
             runOnUiThread {
-                initializeProgressBar(list.size)
-                arrayList = ArrayList(list)
-                if (list.size < 10) {
+                initializeProgressBar(combinedList.size)
+                arrayList = ArrayList(combinedList)
+                if (combinedList.size < 10) {
                     setupAdapter(arrayList)
                 } else {
                     setupAdapter(arrayList.take(10))
