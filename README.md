@@ -7,7 +7,8 @@ The Cards app is designed to build vocabulary. For convenience, a translator is 
 Google ML Kit (Translator), Firebase (Auth & Firestore), Room (Database), Lifecycle Components, Coroutines, Hilt (Dependency Injection), Koloda (Card-like Views), FlipView (Flip Animations), Preference DataStore, WorkManager (Background Tasks), Testing Libraries
 
 ## Project Demo
-[cards_demo.webm](https://github.com/ArtemKlym/Cards/assets/114606102/c080725d-5bce-4d27-93fd-bb6c441932c2)
+https://github.com/user-attachments/assets/dd930b6c-d893-4a80-9838-efc78e42bb72
+
 
 
 
