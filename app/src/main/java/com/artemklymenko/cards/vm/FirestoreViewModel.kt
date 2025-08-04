@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.artemklymenko.cards.db.Words
 import com.artemklymenko.cards.firestore.model.Response
-import com.artemklymenko.cards.firestore.repository.impl.CardsRepositoryImpl
+import com.artemklymenko.cards.firestore.repository.CardsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FirestoreViewModel @Inject constructor(
-    private val repositoryImpl: CardsRepositoryImpl
+    private val repositoryImpl: CardsRepository
 ) : ViewModel() {
 
     private val _addCardResult = MutableLiveData<Response<String>>()
