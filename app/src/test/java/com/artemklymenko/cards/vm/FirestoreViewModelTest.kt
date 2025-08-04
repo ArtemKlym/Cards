@@ -1,7 +1,4 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.artemklymenko.cards.vm
-
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.artemklymenko.cards.firestore.model.Response
@@ -18,7 +15,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.Exception
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class FirestoreViewModelTest {

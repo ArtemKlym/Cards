@@ -22,6 +22,4 @@ class MainDispatcherRule(
     override fun finished(description: Description?) {
         Dispatchers.resetMain()
     }
-
-    fun getTestDispatcher(): TestDispatcher = dispatcher
 }
